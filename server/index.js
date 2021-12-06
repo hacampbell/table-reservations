@@ -9,8 +9,19 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// --------------------------------------------- MongoDB ---------------------------------------------
+
 // Database URL
 const mongoDbUrl = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}`;
+
+mongoose.connect(mongoDbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+  .then(() => console.log('Database Connected'))
+  .catch(err => console.error( err ));
+
+mongoose.set('useFindAndModify', false);
+const db = mongoose.connection;
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log('Connected to database!'));
 
 // --------------------------------------------- Routing ---------------------------------------------
 
