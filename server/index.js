@@ -29,6 +29,10 @@ db.once('open', () => console.log('Connected to database!'));
 const loginRouter = require('./routes/loginRoute');
 app.use('/login', loginRouter);
 
+// Routing for Registering
+const registerRouter = require('./routes/registerRoute');
+app.use('/register', registerRouter);
+
 // 'Quick & Dirty' test route to ensure that the API is up. Remove before putting in production
 app.get('/', (req, res) => {
   res.json({message: 'Hello World!'});
