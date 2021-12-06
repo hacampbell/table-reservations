@@ -25,13 +25,9 @@ db.once('open', () => console.log('Connected to database!'));
 
 // --------------------------------------------- Routing ---------------------------------------------
 
-// Routing for login
-const loginRouter = require('./routes/loginRoute');
-app.use('/login', loginRouter);
-
-// Routing for Registering
-const registerRouter = require('./routes/registerRoute');
-app.use('/register', registerRouter);
+// Routing for /user. Breaks off into /user/login and /user/register.
+const userRoute = require('./routes/userRoute');
+app.use('/user', userRoute);
 
 // 'Quick & Dirty' test route to ensure that the API is up. Remove before putting in production
 app.get('/', (req, res) => {
