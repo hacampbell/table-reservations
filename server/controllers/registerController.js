@@ -1,7 +1,41 @@
-exports.RegisterUser = (req, res) => {
-    res.status(501).json({message: 'Awaiting implementation'});
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const User = require('../models/User'); 
+
+/**
+ * Registers a new user in teh database.
+ * @param {*} req Data sent in the request to the server
+ * @param {*} res Our response
+ */
+exports.RegisterUser = async (req, res) => { // TODO: Add middleware for data validation
+    try {
+        // Create hased password with salt of 10 rounds
+        const hasedPass = await bcrypt.hash(req.body.password, 10);
+
+        const newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hasedPass
+        });
+
+        await newUser.save();
+        res.status(201).json({message: 'User Created'});
+    } catch (err) {
+        res.status(500).json({message: 'Unable to create new user.', error: err.message});
+    }
 }
 
-exports.Test = (req, res) => {
-    res.status(501).json({message: 'Route works'});
+/**
+ * A 'Quick & Dirty' test route to get all of the users in the data base. Delete before moving
+ * to production.
+ * @param {*} req Data sent in the request to the server
+ * @param {*} res Our response
+ */
+exports.Test = async (req, res) => {
+    try {
+        const allUsers = await User.find();
+        res.status(200).json(allUsers);
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
 }
