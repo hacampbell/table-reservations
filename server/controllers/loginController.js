@@ -7,9 +7,9 @@ const User = require('../models/User');
  * @param {*} req Data sent in the request to the server
  * @param {*} res Our response
  */
-exports.Login = async (req, res) => { // TODO: Convert finding the user to middleware
+exports.Login = async (req, res) => {
     try {
-        const user = await User.findOne({username: req.body.username});
+        const user = res.user;
 
         if (await bcrypt.compare(req.body.password, user.password)) {
             res.status(200).json({message: 'Logged in'});
