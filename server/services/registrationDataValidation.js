@@ -46,6 +46,45 @@ exports.isValidPassword = (password) => {
     const isAlphaNumeric = /^[a-zA-Z0-9]{8,25}$/;   // Check length & is alphanumeric
     const hasCapital = /[A-Z]/;                     // Check there's at least one capital letter
     const hasNumber = /[0-9]/;                      // Check there's at least one digit
-    
+
     return isAlphaNumeric.test(password) && hasCapital.test(password) && hasNumber.test(password);
 }
+
+/**
+ * A middleware function used to ensure that the server has been sent valid data in a
+ * request to create a new user.
+ * @param {*} req The request
+ * @param {*} res Response
+ * @param {*} next Next fucntion to move on to
+ */
+exports.ValidateNewUser = async (req, res, next) => {
+    let errors = [];
+
+    // Ensure that all mandatory fields have been sent in the users request, and that
+    // they've been populated with valid data. If they haven't, add a friendly error
+    // and move on.
+
+    if (!(req.body.username && this.isValidUsername(req.body.username))) {
+        errors.push("Invalid username entered. Username must be between 3 & 25 characters in length and contain only letters and numbers."); 
+    }
+
+    if (req.body.username && await this.isUniqueUsername(req.body.username) !== true) {
+        errors.push("The username you entered has already been taken.");
+    }
+
+    if (!(req.body.email && this.isValidEmail(req.body.email))) {
+        errors.push("Invalid email entered.");
+    }
+
+    if (!(req.body.password && this.isValidPassword(req.body.password))) {
+        errors.push("Invalid password entered. Password must be between 8 & 25 characters in length, contain only letters and numbers with at least one capital letter and at least one number.");
+    }
+
+    // If we've been sent bad dad, don't bother going any further. Break out and send
+    // the errors back to the user.
+    if (errors.length != 0) {
+        return res.status(400).json({message: "Unable to create new user. Bad data sent to server.", error: errors});
+    }
+
+    next();
+} 
