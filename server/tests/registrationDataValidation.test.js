@@ -121,4 +121,50 @@ test('[EMAIL] Can detect an invalid email (empty)', () => {
 /************************************************************************************************
  *                                  Testing Password Validation                                  *
  ************************************************************************************************/
-// Test that user has entered a valid password
+test('[PASSWORD] Can detect valid password (Xylophone8271)', () => {
+    expect(regDataValidator.isValidPassword('Xylophone8271')).toEqual(true);
+})
+
+test('[PASSWORD] Can detect valid password (L33TSP34KL4537)', () => {
+    expect(regDataValidator.isValidPassword('L33TSP34KL4537')).toEqual(true);
+})
+
+test('[PASSWORD] Can detect valid password (Eightch1 min length)', () => {
+    expect(regDataValidator.isValidPassword('Eightch1')).toEqual(true);
+})
+
+test('[PASSWORD] Can detect valid password (ThisIsQuiteTheLongPasswo1 max length)', () => {
+    expect(regDataValidator.isValidPassword('ThisIsQuiteTheLongPasswo1')).toEqual(true);
+})
+
+test('[PASSWORD] Can detect invalid password (Passwo1 too short)', () => {
+    expect(regDataValidator.isValidPassword('Passwo1')).toEqual(false);
+})
+
+test('[PASSWORD] Can detect invalid password (ThisIsQuiteTheLongPassword1234567 too long)', () => {
+    expect(regDataValidator.isValidPassword('ThisIsQuiteTheLongPassword1234567')).toEqual(false);
+})
+
+test('[PASSWORD] Can detect invalid password (ThisIsMissingNumbers no numbers)', () => {
+    expect(regDataValidator.isValidPassword('ThisIsMissingNumbers')).toEqual(false);
+})
+
+test('[PASSWORD] Can detect invalid password (thisismissingacaptial1 no capital)', () => {
+    expect(regDataValidator.isValidPassword('thisismissingacaptial1')).toEqual(false);
+})
+
+test('[PASSWORD] Can detect invalid password (ThisHasWh1teSpace with whitespace)', () => {
+    expect(regDataValidator.isValidPassword(' ThisHasWh1teSpace ')).toEqual(false);
+})
+
+test('[PASSWORD] Can detect invalid password (all whitespace)', () => {
+    expect(regDataValidator.isValidPassword('      ')).toEqual(false);
+})
+
+test('[PASSWORD] Can detect invalid password (empty)', () => {
+    expect(regDataValidator.isValidPassword('')).toEqual(false);
+})
+
+test('[PASSWORD] Can detect invalid password (forebidden characters)', () => {
+    expect(regDataValidator.isValidPassword('$#%@^#%$#&@#^$12')).toEqual(false);
+})
