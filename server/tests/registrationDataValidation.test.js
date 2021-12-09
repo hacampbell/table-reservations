@@ -78,7 +78,45 @@ test('[USERNAME] Can detect an ivalid username (space in name)', () => {
 /************************************************************************************************
  *                                   Testing Email Validation                                   *
  ************************************************************************************************/
-// Test that user entered a valid email
+test('[EMAIL] Can detect an valid email (test@test.test)', () => {
+    expect(regDataValidator.isValidEmail('test@test.test')).toEqual(true);
+});
+
+test('[EMAIL] Can detect an valid email (test@gmail.com)', () => {
+    expect(regDataValidator.isValidEmail('test@gmail.com')).toEqual(true);
+});
+
+test('[EMAIL] Can detect an valid email (test@y7mail.com)', () => {
+    expect(regDataValidator.isValidEmail('test@y7mail.com')).toEqual(true);
+});
+
+test('[EMAIL] Can detect an valid email (test@test.test with whitespace)', () => {
+    expect(regDataValidator.isValidEmail('   test@test.test   ')).toEqual(true);
+});
+
+test('[EMAIL] Can detect an invalid email (@test.test)', () => {
+    expect(regDataValidator.isValidEmail('@test.test')).toEqual(false);
+});
+
+test('[EMAIL] Can detect an invalid email (test@test)', () => {
+    expect(regDataValidator.isValidEmail('test@test')).toEqual(false);
+});
+
+test('[EMAIL] Can detect an invalid email (test @ test.com)', () => {
+    expect(regDataValidator.isValidEmail('test @ test.com')).toEqual(false);
+});
+
+test('[EMAIL] Can detect an invalid email (abcabc)', () => {
+    expect(regDataValidator.isValidEmail('abcabc')).toEqual(false);
+});
+
+test('[EMAIL] Can detect an invalid email (all white space)', () => {
+    expect(regDataValidator.isValidEmail('      ')).toEqual(false);
+});
+
+test('[EMAIL] Can detect an invalid email (empty)', () => {
+    expect(regDataValidator.isValidEmail('')).toEqual(false);
+});
 
 /************************************************************************************************
  *                                  Testing Password Validation                                  *
