@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 /**
  * Checks if a given username is valid i.e. is between 3 and 25 characters inclusive,
  * and is alphanumeric.
@@ -15,8 +17,10 @@ exports.isValidUsername = (username) => {
  * @param {string} username The username to check for uniqueness
  * @returns true if the username does not exist in the database, otherwise false
  */
-exports.isUniqueUsername = (username) => {
-    return 501;
+exports.isUniqueUsername = async (username) => {
+    const trimmedUsername = username.trim();
+    const found = await User.findOne({'username': trimmedUsername});
+    return found === null;
 }
 
 /**
