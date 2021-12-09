@@ -37,11 +37,15 @@ exports.isValidEmail = (email) => {
 }
 
 /**
- * Checks that a users password is valid, i.e. is between 8 and 25 characters and
- * contains both letters and numbers
+ * Checks that a users password is valid, i.e. is between 8 and 25 characters, contains
+ * both letters and numbers, at least one uppercase letter, and no white space.
  * @param {string} password 
  * @returns true if the password entered is valid, otherwise false
  */
 exports.isValidPassword = (password) => {
-    return 501;
+    const isAlphaNumeric = /^[a-zA-Z0-9]{8,25}$/;   // Check length & is alphanumeric
+    const hasCapital = /[A-Z]/;                     // Check there's at least one capital letter
+    const hasNumber = /[0-9]/;                      // Check there's at least one digit
+    
+    return isAlphaNumeric.test(password) && hasCapital.test(password) && hasNumber.test(password);
 }
