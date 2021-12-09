@@ -1,10 +1,13 @@
 /**
- * Checks if a given username is valid i.e. is between 3 and 25 characters inclusive.
+ * Checks if a given username is valid i.e. is between 3 and 25 characters inclusive,
+ * and is alphanumeric.
  * @param {string} username The username to check for validity
  * @returns true if username is valid, otherwise false
  */
 exports.isValidUsername = (username) => {
-    return 501;
+    const trimmedUsername = username.trim();
+    const expression = /^[a-zA-Z0-9_]{3,25}$/;
+    return expression.test(trimmedUsername);
 }
 
 /**
