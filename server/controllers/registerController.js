@@ -8,8 +8,6 @@ const User = require('../models/User');
  * @param {*} res Our response
  */
 exports.RegisterUser = async (req, res) => {
-    // TODO:    - Add middleware for data validation
-    //          - Ensure that there aren't accounts already with the same email
     try {
         // Create hased password with salt of 10 rounds
         const hasedPass = await bcrypt.hash(req.body.password, 10);
