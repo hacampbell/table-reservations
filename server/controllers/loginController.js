@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const User = require('../models/User'); 
 
-const {ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET} = require('../config/config');
+const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFETIME, REFRESH_TOKEN_SECRET} = require('../config/config');
 
 /**
  * Logs a user in
@@ -31,7 +31,11 @@ exports.Login = async (req, res) => {
  * @returns A signed access token to be sent to the user to authorise future requests
  */
 function GenerateJWT (username) {
-    const userObj = {'username': username};                         // Serialise user information needed for the token
-    const accessToken = jwt.sign(userObj, ACCESS_TOKEN_SECRET);     // Create JWT
-    return accessToken;                                             // Return the token
+    // Serialise user information needed for the token
+    const userObj = {'username': username};
+
+    // Create the access token
+    const accessToken = jwt.sign(userObj, ACCESS_TOKEN_SECRET, {expiresIn: ACCESS_TOKEN_LIFETIME});
+
+    return accessToken;
 }
