@@ -5,10 +5,10 @@ const router = express.Router();
 const reservationsController = require('../controllers/reservationsController');
 
 // Services / Middleware
-// --- pending ---
+const authHandler = require('../services/authorisationHandler');
 
 // Routes
-router.get('/', reservationsController.Test);
+router.get('/', authHandler.ValidateToken, reservationsController.Test);
 
 
 module.exports = router;
