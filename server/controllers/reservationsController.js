@@ -4,6 +4,6 @@
  * @param {*} req Data sent in the request to the server
  * @param {*} res Our response
  */
- exports.Test = async (req, res) => {
-    res.status(501).json({message: 'Pending implementation'});
+exports.Test = async (req, res) => {
+    res.status(501).json({message: 'Pending implementation', user: res.user});
 }

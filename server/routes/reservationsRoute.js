@@ -6,9 +6,10 @@ const reservationsController = require('../controllers/reservationsController');
 
 // Services / Middleware
 const authHandler = require('../services/authorisationHandler');
+const userFinder = require('../services/findUserMiddleware');
 
 // Routes
-router.get('/', authHandler.ValidateToken, reservationsController.Test);
+router.get('/', authHandler.ValidateToken, userFinder.GetUserByUsername, reservationsController.Test);
 
 
 module.exports = router;

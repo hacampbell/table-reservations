@@ -19,7 +19,7 @@ exports.ValidateToken = (req, res, next) => {
 
     jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.status(403).json({message: 'Invalid authorisation token.'});
-        req.user = user;
+        req.body.username = user.username;
         next();
     });
 } 
