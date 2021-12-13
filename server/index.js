@@ -29,6 +29,10 @@ db.once('open', () => console.log('Connected to database!'));
 const userRoute = require('./routes/userRoute');
 app.use('/user', userRoute);
 
+// Routing for Reservations
+const reservationsRoute = require('./routes/reservationsRoute');
+app.use('/reservations', reservationsRoute);
+
 // 'Quick & Dirty' test route to ensure that the API is up. Remove before putting in production
 app.get('/', (req, res) => {
   res.json({message: 'Hello World!'});
