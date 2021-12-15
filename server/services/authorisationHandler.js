@@ -7,7 +7,7 @@ const {ACCESS_TOKEN_SECRET} = require('../config/config');
  * @param {*} res Our response object
  * @param {*} next The next function to call
  */
-exports.ValidateToken = (req, res, next) => {
+exports.ValidateAuthToken = (req, res, next) => {
     console.log("ValidateToken");
 
     const authHeader = req.headers['authorization'];        // Get auth token from request
