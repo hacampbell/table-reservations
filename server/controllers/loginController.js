@@ -43,7 +43,7 @@ exports.Logout = async (req, res) => {
     user.refreshToken = "";
     await user.save();
 
-    res.status(200).json({message: 'Logged Out'});
+    res.status(204).json({message: 'Logged Out'});
 }
 
 /**
