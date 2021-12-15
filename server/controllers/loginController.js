@@ -13,8 +13,9 @@ exports.Login = async (req, res) => {
         const user = res.user;
 
         if (await bcrypt.compare(req.body.password, user.password)) {
-            const token = GenerateJWT(user.username);
-            res.status(200).json({message: 'Logged in', accessToken: token});
+            const accessToken = GenerateAccessToken(user.username);
+            const refreshToken = GenerateRefreshToken(user.username);
+            res.status(200).json({message: 'Logged in', accessToken: accessToken, refreshToken: refreshToken});
         } else {
             res.status(403).json({message: 'Incorrect password'});
         }
@@ -24,16 +25,32 @@ exports.Login = async (req, res) => {
 }
 
 /**
- * 
+ * Generates a JWT access token that can be used for authorisation on requests by a
+ * user. 
  * @param {string} username The username of the user to generate the access token for
- * @returns A signed access token to be sent to the user to authorise future requests
+ * @returns {String} A signed access token to be sent to the user to authorise future requests
  */
-function GenerateJWT (username) {
+function GenerateAccessToken (username) {
     // Serialise user information needed for the token
-    const userObj = {'username': username};
+    const userObj = {username: username};
 
     // Create the access token
     const accessToken = jwt.sign(userObj, ACCESS_TOKEN_SECRET, {expiresIn: ACCESS_TOKEN_LIFETIME});
 
     return accessToken;
+}
+
+/**
+ * Generates a JWT refresh token that can be used to refresh an access token that has
+ * expired
+ * @param {String} username
+ * @returns {String} A signed refresh token which can be used to refresh expired access tokens
+ */
+function GenerateRefreshToken (username) {
+    // Serialise user information for the token
+    const userObj = {username: username};
+
+    const refreshToken = jwt.sign(userObj, REFRESH_TOKEN_SECRET);
+
+    return refreshToken;
 }
