@@ -15,6 +15,6 @@ router.get('/register', registerController.Test);
 
 router.post('/login', userFinder.GetUserByUsername, loginController.Login);
 
-router.post('/token', loginController.RefreshAccessToken);
+router.post('/token', userFinder.GetUserByRefreshToken, loginController.RefreshAccessToken);
 
 module.exports = router;
