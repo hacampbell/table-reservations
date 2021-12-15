@@ -32,11 +32,26 @@ exports.Login = async (req, res) => {
 }
 
 /**
+ * Logs a user out by deleting their refresh token, meaning they can no longer refresh
+ * access tokens.
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.Logout = async (req, res) => {
+    const user = res.user;
+
+    user.refreshToken = "";
+    await user.save();
+
+    res.status(200).json({message: 'Logged Out'});
+}
+
+/**
  * Generates a new access token given a valid refresh token
  * @param {*} req 
  * @param {*} res 
  */
-exports.RefreshAccessToken = async (req, res) => {
+exports.RefreshAccessToken = (req, res) => {
     // If we've gotten to this point we know that the refresh token in the req exists in the DB
     // and belongs to the user stored in the res.user object
 

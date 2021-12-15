@@ -15,6 +15,8 @@ router.get('/register', registerController.Test);
 
 router.post('/login', userFinder.GetUserByUsername, loginController.Login);
 
+router.delete('/logout', userFinder.GetUserByRefreshToken, loginController.Logout);
+
 router.post('/token', userFinder.GetUserByRefreshToken, loginController.RefreshAccessToken);
 
 module.exports = router;
