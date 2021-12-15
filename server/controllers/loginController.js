@@ -36,8 +36,19 @@ exports.Login = async (req, res) => {
  * @param {*} req 
  * @param {*} res 
  */
-exports.RefreshAccessToken = (req, res) => {
-    res.status(501).json({message: 'Pending Implementation'});
+exports.RefreshAccessToken = async (req, res) => {
+    // If we've gotten to this point we know that the refresh token in the req exists in the DB
+    // and belongs to the user stored in the res.user object
+
+    const refreshToken = req.body.refreshToken;
+
+    // Verify the refresh token so we know it hasn't been tampered with
+    jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.status(403).json({message: 'Unable to generate new access token'});
+
+        const accessToken = GenerateAccessToken(user.username);
+        res.status(200).json({accessToken: accessToken});
+    });
 }
 
 /**
