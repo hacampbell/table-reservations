@@ -4,17 +4,24 @@ const jwt = require('jsonwebtoken');
 const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFETIME, REFRESH_TOKEN_SECRET} = require('../config/config');
 
 /**
- * Logs a user in
- * @param {*} req Data sent in the request to the server
- * @param {*} res Our response
+ * Logs a user in, generating accessa nd refresh tokens
+ * @param {*} req 
+ * @param {*} res 
  */
 exports.Login = async (req, res) => {
     try {
         const user = res.user;
 
+        // Check if the credentials are valid
         if (await bcrypt.compare(req.body.password, user.password)) {
+            // Generate access and refresh tokens
             const accessToken = GenerateAccessToken(user.username);
             const refreshToken = GenerateRefreshToken(user.username);
+
+            // Save refresh token to DB
+            user.refreshToken = refreshToken;
+            await user.save();
+
             res.status(200).json({message: 'Logged in', accessToken: accessToken, refreshToken: refreshToken});
         } else {
             res.status(403).json({message: 'Incorrect password'});
@@ -22,6 +29,15 @@ exports.Login = async (req, res) => {
     } catch (err) {
         res.status(500).json({message: 'Unable to login.', error: err.message});
     }
+}
+
+/**
+ * Generates a new access token given a valid refresh token
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.RefreshAccessToken = (req, res) => {
+    res.status(501).json({message: 'Pending Implementation'});
 }
 
 /**
