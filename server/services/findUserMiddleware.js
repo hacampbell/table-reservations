@@ -30,6 +30,12 @@ exports.GetUserByUsername = async (req, res, next) => {
  * @returns Status 403 with message invalid refresh token if no matching user is found for the given refresh token.
  */
 exports.GetUserByRefreshToken = async (req, res, next) => {
+    // Make sure we've actually been sent a refresh token
+    if (!req.body.refreshToken || req.body.refreshToken.trim() === '') {
+        return res.status(400).json({message: 'No refresh token sent to server'});
+    }
+
+    // Find the user associated with the refresh token
     try {
         const user = await User.findOne({refreshToken: req.body.refreshToken});
         if (user == null) {
