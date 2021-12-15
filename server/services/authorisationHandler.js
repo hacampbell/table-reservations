@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const {ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET} = require('../config/config');
+const {ACCESS_TOKEN_SECRET} = require('../config/config');
 
 /**
- * A peive of middleware for validating a user authorisation token
+ * A piece of middleware for validating a user authorisation token
  * @param {*} req The user request object
  * @param {*} res Our response object
  * @param {*} next The next function to call
