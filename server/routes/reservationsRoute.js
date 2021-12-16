@@ -9,7 +9,20 @@ const authHandler = require('../services/authorisationHandler');
 const userFinder = require('../services/findUserMiddleware');
 
 // Routes
-router.get('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.Test);
 
+// Get all reservations
+router.get('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.GetAllReservations);
+
+// Get single reservation by id 
+router.get('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.GetSingleReservation);
+
+// Create a reservation
+router.post('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.CreateReservation);
+
+// Update a reservation by id
+router.patch('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.UpdateReservation);
+
+// Cancel a reservation by id
+router.delete('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.CancelReservation);
 
 module.exports = router;
