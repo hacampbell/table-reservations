@@ -1,14 +1,4 @@
 /**
- * A 'Quick & Dirty' test to check that the route is working. Delete before moving
- * to production.
- * @param {*} req
- * @param {*} res
- */
-exports.Test = async (req, res) => {
-    res.status(200).json({message: 'Test route of /reservations reached', user: res.user});
-}
-
-/**
  * Gets all reservations in the database if the user is an admin, gets all reservations for
  * their restaurant if the user is a restaurateur, or gets all reservations they've made if
  * the user is just a user.
