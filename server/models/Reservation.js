@@ -34,7 +34,8 @@ const reservationSchema = new mongoose.Schema({
     },
 
     mobileNumber: {
-        type: String
+        type: String,
+        required: true
     },
 
     specialRequests: {
