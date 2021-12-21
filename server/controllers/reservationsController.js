@@ -55,7 +55,29 @@ exports.GetSingleReservation = async (req, res) => {
  * @param {*} res 
  */
 exports.CreateReservation = async (req, res) => {
-    res.status(501).json({message: 'CreateReservation Pending Implementation', user: res.user});
+    try {
+        const user = res.user;
+        // Restaurateur's can't make reservations on the platform
+        if (user.role === 'restaurateur') return res.status(403).json({message: 'You cannot access this endpoint'});
+
+        const reservation = new Reservation({
+            reservationName: req.body.reservationName,
+            username: user.username,
+            time: req.body.time,
+            numGuests: req.body.numGuests,
+            restaurantName: req.body.restaurantName,
+            mobileNumber: req.body.mobileNumber,
+            specialRequests: req.body.specialRequests,
+            date: req.body.date,
+            status: 'Processing'
+
+        });
+
+        const newRes = await reservation.save();
+        return res.status(201).json({newRes});
+    } catch (err) {
+        res.status(500).json({message: 'An error occured trying to create reservation.', error: err.message});
+    }
 }
 
 /**
