@@ -7,6 +7,7 @@ const reservationsController = require('../controllers/reservationsController');
 // Services / Middleware
 const authHandler = require('../services/authorisationHandler');
 const userFinder = require('../services/findUserMiddleware');
+const resFinder = require('../services/findReservationMiddleware');
 
 // Routes
 
@@ -14,15 +15,15 @@ const userFinder = require('../services/findUserMiddleware');
 router.get('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.GetAllReservations);
 
 // Get single reservation by id 
-router.get('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.GetSingleReservation);
+router.get('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, resFinder.GetReservationByID, reservationsController.GetSingleReservation);
 
 // Create a reservation
 router.post('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.CreateReservation);
 
 // Update a reservation by id
-router.patch('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.UpdateReservation);
+router.patch('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, resFinder.GetReservationByID, reservationsController.UpdateReservation);
 
 // Cancel a reservation by id
-router.delete('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, reservationsController.CancelReservation);
+router.delete('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, resFinder.GetReservationByID, reservationsController.CancelReservation);
 
 module.exports = router;
