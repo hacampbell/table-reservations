@@ -11,7 +11,6 @@ const registerUserDataValidator = require('../services/registrationDataValidatio
 
 // Routes
 router.post('/register', registerUserDataValidator.ValidateNewUser, registerController.RegisterUser);
-router.get('/register', registerController.Test);
 
 router.post('/login', userFinder.GetUserByUsername, loginController.Login);
 
