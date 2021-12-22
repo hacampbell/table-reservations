@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 /**
  * Checks that a valid name for a reservation has been given. Valid names are
  * considered to be strings of at least 2 characters in length.
