@@ -48,7 +48,7 @@ test('[USERNAME] Can detect an ivalid username (space in name)', () => {
  *                                 Testing Username Uniqueness                                  *
  ************************************************************************************************
  *
- * These are all disable because I cant work out how to get async tests working with Jest. It
+ * These are all disabled because I can't work out how to get async tests working with Jest. It
  * seems that something goes very wrong with I try to directly call (e.g. newUser.Save()) or
  * indirectly call (e.g. regDataValidator.isUniqueUsername) anything relating to mongoDB.
  * 
