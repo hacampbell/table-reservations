@@ -89,11 +89,12 @@ exports.isValidMobileNumber = (mobile) => {
 /**
  * Ensures that the users has sent a valid status to the server. This can only be done
  * in a PATCH request in which the users wishes to update their status to cancelled.
- * In the case of making a new reservation, the stus is set automatically by the server.
+ * In the case of making a new reservation, the status is set automatically by the server.
  * @param {String} status 
  */
 exports.isValidStatus = (status) => {
-    return 501;
+    let validStatus = ["Cancelled", "Processing"];
+    return validStatus.includes(status.trim());
 }
 
 /**
