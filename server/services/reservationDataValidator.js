@@ -8,7 +8,7 @@ const moment = require("moment");
  * @returns true in the case that a valid name has been given.
  */
 exports.isValidReservationName = (reservationName) => {
-    return 501;
+    return reservationName.trim().length >= 2
 }
 
  /**
