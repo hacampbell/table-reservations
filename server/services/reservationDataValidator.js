@@ -20,7 +20,15 @@ exports.isValidReservationName = (reservationName) => {
  * @returns true in the case that a valid reservation date has been given.
  */
 exports.isValidReservationDate = (reservationDate) => {
-    return 501;
+    if (moment(reservationDate, "YYYY-MM-DD", true).isValid()){
+        let today = moment().startOf("day");
+        let givenDate = moment(reservationDate, "YYYY-MM-DD").startOf("day");
+        let twoWeeks = today.clone().add(14, "day").endOf("day");
+
+        return (givenDate.isBetween(today, twoWeeks) || givenDate.isSame(moment(), "day"));
+    } else {
+        return false;
+    }
 }
 
 /**
