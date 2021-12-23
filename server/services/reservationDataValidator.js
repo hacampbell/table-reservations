@@ -66,24 +66,15 @@ exports.isValidRestaurant = (restaurantName) => {
 }
 
 /**
- * Checks if a mobile number is in a valid format, i.e. one of the following formats
- * - (123) 456-7890
- * - (123)456-7890
- * - 123-456-7890
- * - 123.456.7890
- * - 1234567890
- * - +31636363634
- * - 075-63546725
- * 
- * RegEx taken from answer by users marty and EeeeeK on the following stackoverflow
- * thread: 
- * https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript
+ * Checks if a mobile number is in a valid format, i.e. is only numbers and is 10 characters
+ * long
+ * e.g. 0404440404
  * 
  * @param {String} mobile 
  * @returns true in the case of a valid mobile number, false otherwise.
  */
 exports.isValidMobileNumber = (mobile) => {
-    return 501;
+    return /[0-9]{10}/.test(mobile);
 }
 
 /**
