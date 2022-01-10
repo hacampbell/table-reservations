@@ -33,6 +33,10 @@ app.use('/user', userRoute);
 const reservationsRoute = require('./routes/reservationsRoute');
 app.use('/reservations', reservationsRoute);
 
+// Routing for Restaurants
+const restaurantsRoute = require('./routes/restaurantsRoute');
+app.use('/restaurants', restaurantsRoute)
+
 // 'Quick & Dirty' test route to ensure that the API is up. Remove before putting in production
 app.get('/', (req, res) => {
   res.json({message: 'Hello World!'});
