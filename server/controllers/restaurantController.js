@@ -6,7 +6,8 @@ const Restaurant = require('../models/Restaurant');
  * @param {*} res 
  */
 exports.GetAllRestaurants = async (req, res) => {
-    res.status(501).json({message: 'Implementation pending'});
+    const restaurants = await Restaurant.find();
+    res.status(200).json(restaurants);
 }
 
 /**
