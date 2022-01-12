@@ -16,7 +16,29 @@ exports.GetAllRestaurants = async (req, res) => {
  * @param {*} res 
  */
 exports.CreateRestaurant = async (req, res) => {
-    res.status(501).json({message: 'Implementation pending'});
+    try {
+        const accessList = ['admin', 'restaurateur'];
+        if (!accessList.includes(res.user.role)) {
+            return res.status(403).json({message: 'You cannot access this endpoint'});
+        }
+
+        const newRestaurant = new Restaurant({
+            owner: res.user.username,
+            name: req.body.name,
+            openingHours: req.body.openingHours,
+            openingDays: req.body.openingDays,
+            contactNumber: req.body.contactNumber,
+            address: req.body.address,
+            description: req.body.description,
+            image: req.body.image
+        });
+
+        await newRestaurant.save();
+
+        res.status(201).json({message: 'Restaurant created'});
+    } catch (err) {
+        res.status(500).json({message: 'Could not create new restaurant.', error: err.message});
+    }
 }
 
 /**
