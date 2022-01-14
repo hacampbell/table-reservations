@@ -8,8 +8,6 @@ const {ACCESS_TOKEN_SECRET} = require('../config/config');
  * @param {*} next The next function to call
  */
 exports.ValidateAuthToken = (req, res, next) => {
-    console.log("ValidateToken");
-
     const authHeader = req.headers['authorization'];        // Get auth token from request
     const token = authHeader && authHeader.split(' ')[1];   // Get rid of 'Bearer' prefix
 
