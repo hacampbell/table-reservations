@@ -13,10 +13,11 @@ exports.GetRestaurantByID = async (req, res, next) => {
         if (restaurant == null) {
             return res.status(404).json({message: 'No restaurant found'});
         }
+
+        res.restaurant = restaurant;
     } catch (err) {
         return res.status(500).json({message: 'An error occured trying to get restaurant', error: err.message});
     }
 
-    res.restaurant = restaurant;
     next();
 }
