@@ -47,7 +47,16 @@ exports.CreateRestaurant = async (req, res) => {
  * @param {*} res 
  */
 exports.DeleteRestaurant = async (req, res) => {
-    res.status(501).json({message: 'Implementation pending'});
+    if (res.restaurant.owner !== res.user.username && res.user.role !== 'admin') {
+        return res.status(403).json({message: 'You do not have permission to perform that operation'});
+    }
+    
+    try {
+        await res.restaurant.remove();
+        res.status(200).json({message: 'Restaurant deleted'});
+    } catch (err) {
+        res.status(500).json({message: 'An error occured trying to remove the restaurant', error: err.message});
+    }
 }
 
 /**
