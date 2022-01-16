@@ -8,6 +8,7 @@ const restaurantController = require('../controllers/restaurantController');
 const authHandler = require('../services/authorisationHandler');
 const userFinder = require('../services/findUserMiddleware');
 const restaurantFinder = require('../services/findRestaurantMiddleware');
+const dataValidator = require('../services/restaurantDataValidator');
 
 // Routes
 
@@ -15,7 +16,7 @@ const restaurantFinder = require('../services/findRestaurantMiddleware');
 router.get('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, restaurantController.GetAllRestaurants);
 
 // Create a restaurant
-router.post('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, restaurantController.CreateRestaurant);
+router.post('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, dataValidator.isValidPost, restaurantController.CreateRestaurant);
 
 // Update existing restaurant
 router.patch('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, restaurantFinder.GetRestaurantByID, restaurantController.UpdateRestaurant);
