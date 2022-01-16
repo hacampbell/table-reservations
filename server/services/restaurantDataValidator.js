@@ -35,7 +35,8 @@ exports.isValidOpeningDays = (days) => {
  * @param {String} contact The contact phone number of the restaurant
  */
 exports.isValidContactNumber = (contact) => {
-
+    const expression = /^[0-9]{10}$/;
+    return expression.test(contact.trim());
 }
 
 /**
