@@ -46,7 +46,8 @@ exports.isValidContactNumber = (contact) => {
  * @param {String} address The address of the restaurant
  */
 exports.isValidAddress = (address) => {
-
+    const expression = /^[0-9]{1,} [a-zA-Z ]{1,}, [a-zA-Z ,.'-]{1,}$/;
+    return expression.test(address.trim());
 }
 
 /**
@@ -71,5 +72,5 @@ exports.isValidDescription = (description) => {
  */
 exports.isValidImage = (image) => {
     expression = /^src\/assets\/img\/+[a-zA-z0-9].+(?:jpg|png|jpeg)$/;
-    return clsexpression.test(image.trim());
+    return expression.test(image.trim());
 }
