@@ -69,5 +69,6 @@ exports.isValidDescription = (description) => {
  * @param {String} image The path for an image of the restaurant 
  */
 exports.isValidImage = (image) => {
-    
+    expression = /^src\/assets\/img\/+[a-zA-z0-9].+(?:jpg|png|jpeg)$/;
+    return clsexpression.test(image.trim());
 }
