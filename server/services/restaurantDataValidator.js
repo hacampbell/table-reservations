@@ -55,7 +55,8 @@ exports.isValidAddress = (address) => {
  * @param {String} description The description of the restaurant
  */
 exports.isValidDescription = (description) => {
-
+    expression = /^[a-zA-Z0-9,.?!' -]{1,512}$/;
+    return expression.test(description.trim());
 }
 
 /**
