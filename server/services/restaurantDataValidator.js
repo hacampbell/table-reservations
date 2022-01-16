@@ -1,9 +1,11 @@
 /**
  * Checks that the name of a restaurant is valid i.e. is at least 2 charcters
+ * and not more than 45
  * @param {String} name The name of the restaurant
  */
 exports.isValidRestaurantName = (name) => {
-
+    const expression = /^[a-zA-Z0-9',:#@$%-_ ]{2,45}$/
+    return expression.test(name.trim());
 }
 
 /**
@@ -12,7 +14,8 @@ exports.isValidRestaurantName = (name) => {
  * @param {String} hours The hours a restaurant is open
  */
 exports.isValidOpeningHours = (hours) => {
-
+    const expression = /^[0-9][0-9]:[0-9][0-9]-[0-9][0-9]:[0-9][0-9]$/;
+    return expression.test(hours.trim());
 }
 
 /**
