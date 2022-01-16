@@ -74,3 +74,49 @@ exports.isValidImage = (image) => {
     expression = /^src\/assets\/img\/+[a-zA-z0-9].+(?:jpg|png|jpeg)$/;
     return expression.test(image.trim());
 }
+
+/**
+ * Middleware that checks the user has sent valid data in their post request to
+ * create a new restaurant. If bad data is found, a list of errors is returned
+ * to the client and the next function is not called.
+ * @param {Object} req The http request
+ * @param {Object} res Our response object
+ * @param {Function} next Next function to call
+ */
+exports.isValidPost = (req, res, next) => {
+    let errors = [];
+
+    if (!req.body.name || !this.isValidRestaurantName(req.body.name)) {
+        errors.push('Invalid restaurant name');
+    }
+
+    if (!req.body.openingHours || !this.isValidOpeningHours(req.body.openingHours)) {
+        errors.push('Invalid opening hours');
+    }
+
+    if (!req.body.openingDays || !this.isValidOpeningDays(req.body.openingDays)) {
+        errors.push('Invalid opening days');
+    }
+
+    if (!req.body.contactNumber || !this.isValidContactNumber(req.body.contactNumber)) {
+        errors.push('Invalid contact number');
+    }
+
+    if (!req.body.address || !this.isValidAddress(req.body.address)) {
+        errors.push('Invalid address');
+    }
+
+    if (!req.body.description || !this.isValidDescription(req.body.description)) {
+        errors.push('Invalid description');
+    }
+
+    if (!req.body.image || !this.isValidImage(req.body.image)) {
+        errors.push('Invalid image')
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({messgae: 'Bad data sent to server', error: errors});
+    }
+
+    next();
+}
