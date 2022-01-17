@@ -19,7 +19,7 @@ router.get('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, res
 router.post('/', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, dataValidator.isValidPost, restaurantController.CreateRestaurant);
 
 // Update existing restaurant
-router.patch('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, restaurantFinder.GetRestaurantByID, restaurantController.UpdateRestaurant);
+router.patch('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, restaurantFinder.GetRestaurantByID, dataValidator.isValidPatch, restaurantController.UpdateRestaurant);
 
 // Delete existing restaurant
 router.delete('/:id', authHandler.ValidateAuthToken, userFinder.GetUserByUsername, restaurantFinder.GetRestaurantByID, restaurantController.DeleteRestaurant);
