@@ -32,6 +32,10 @@ const restaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    maxGuests: {
+        type: Number,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: () => Date.now()
