@@ -133,41 +133,6 @@ test('[RESERVATION DATE] Can detect invalid reservation dates (date doesn\'t exi
 });
 
 // ---------------------------------------------------------------------------------------------------
-// ||                                  TESTING RESTAURANT NAMES                                     ||
-// ---------------------------------------------------------------------------------------------------
-test('[RESTAURANT NAME] Can detect valid restaurant names (Dorsia)', () => {
-    expect(dataValidator.isValidRestaurant("Dorsia")).toEqual(true);
-});
-
-test('[RESTAURANT NAME] Can detect valid restaurant names (Kacandes Diner)', () => {
-    expect(dataValidator.isValidRestaurant("Kacandes Diner")).toEqual(true);
-});
-
-test('[RESTAURANT NAME] Can detect valid restaurant names (Grand Central Oyster Bar & Restaurant)', () => {
-    expect(dataValidator.isValidRestaurant("Grand Central Oyster Bar & Restaurant")).toEqual(true);
-});
-
-test('[RESTAURANT NAME] Can detect valid restaurant names (Winston\'s Bar)', () => {
-    expect(dataValidator.isValidRestaurant("Winston's Bar")).toEqual(true);
-});
-
-test('[RESTAURANT NAME] Can detect valid restaurant names (Dorsia with white space)', () => {
-    expect(dataValidator.isValidRestaurant("  Dorsia  ")).toEqual(true);
-});
-
-test('[RESTAURANT NAME] Can detect invalid restaurant names (all whitespace)', () => {
-    expect(dataValidator.isValidRestaurant("   ")).toEqual(false);
-});
-
-test('[RESTAURANT NAME] Can detect invalid restaurant names (empty)', () => {
-    expect(dataValidator.isValidRestaurant("")).toEqual(false);
-});
-
-test('[RESTAURANT NAME] Can detect invalid restaurant names (does not exist)', () => {
-    expect(dataValidator.isValidRestaurant("Some Name Here")).toEqual(false);
-});
-
-// ---------------------------------------------------------------------------------------------------
 // ||                             TESTING RESERVATION MOBILE NUMBERS                                ||
 // ---------------------------------------------------------------------------------------------------
 test('[MOBILE NUMBER] Can detect valid number', () => {
