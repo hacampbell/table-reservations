@@ -21,3 +21,17 @@ exports.GetRestaurantByID = async (req, res, next) => {
 
     next();
 }
+
+/**
+ * A small function for finding a restaurant by it's name
+ * @param {String} name The name of the restaurant to find
+ */
+exports.GetRestaurantByName = async (name) => {
+    try {
+        // Search for a restaurant of the name we've been given
+        const restaurant = await Restaurant.findOne({name: name});
+        return restaurant;
+    } catch (err) {
+        return res.status(500).json({message: 'An error occured trying to get restaurant', error: err.message});
+    }
+}
