@@ -93,11 +93,24 @@ exports.UpdateReservation = async (req, res) => {
 
 /**
  * Soft deletes a reservation by setting its status to 'Cancelled'. Admins can cancel any
- * reservations, restaurateurs can cancel reservations at thier own restaurant, and users can
- * only cancel reservations made by them.
- * @param {*} req 
- * @param {*} res 
+ * reservations, and users can only cancel reservations made by them.
+ * @param {Object} req The HTTP request object 
+ * @param {Object} res Our response object
  */
 exports.CancelReservation = async (req, res) => {
-    res.status(501).json({message: 'DeleteReservation Pending Implementation', user: res.user});
+    // Ensure that we're not allowing just anyone to cancel peoples reservations
+    if (res.user.role !== 'admin' && res.reservation.username !== res.user.username) {
+        return res.status(403).json({message: 'You do not have permission to cancel that reservation'});
+    }
+
+    // Let the user know if they're trying to cancel a reservation that's already been cancelled
+    if (res.reservation.status === 'Cancelled') {
+        return res.status(409).json({message: 'This reservation has already been cancelled'});
+    }
+
+    // If we've gotten to this point, it's all OK to set the status of the reservation
+    // to cancelled.
+    res.reservation.status = 'Cancelled';
+    await res.reservation.save();
+    res.status(200).json({message: 'Reservation cancelled'});
 }
