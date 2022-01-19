@@ -82,7 +82,7 @@ exports.isValidImage = (image) => {
  * @param {Number} capacity 
  */
 exports.isValidMaxGuests = (capacity) => {
-    return capacity > 0;
+    return typeof capacity == 'number' && capacity > 0;
 }
 
 /**
