@@ -52,8 +52,11 @@ exports.isValidReservationTime = (time) => {
  * @param {number} guests 
  * @returns true if the number of guests is valid
  */
-exports.isValidGuests = (guests) => {
-    return 501;
+exports.isValidGuests = async (guests, restaurantName) => {
+    const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
+    if (restaurant == null) return false;
+
+    return typeof guests == 'number' && guests <= restaurant.maxGuests;
 }
 
 /**
@@ -63,8 +66,8 @@ exports.isValidGuests = (guests) => {
  * @returns true if the name of a restaurant is valid
  */
 exports.isValidRestaurant = async (restaurantName) => {
-    result = await findRestaurant.GetRestaurantByName(restaurantName);
-    return result != null;
+    const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
+    return restaurant != null;
 }
 
 /**
