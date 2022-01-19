@@ -1,4 +1,5 @@
-const moment = require('moment');
+const moment = require("moment");
+const findRestaurant = require('../services/findRestaurantMiddleware');
 
 /**
  * Checks that a valid name for a reservation has been given. Valid names are
@@ -62,7 +63,8 @@ exports.isValidGuests = (guests) => {
  * @returns true if the name of a restaurant is valid
  */
 exports.isValidRestaurant = async (restaurantName) => {
-    return res.restaurant !== [] && res.restaurantName === restaurantName;
+    result = await findRestaurant.GetRestaurantByName(restaurantName);
+    return result != null;
 }
 
 /**
