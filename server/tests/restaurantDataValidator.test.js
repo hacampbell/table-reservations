@@ -201,3 +201,30 @@ test('[RESTAURANT IMAGE] Can detect invalid image (Empty)', () => {
 test('[RESTAURANT IMAGE] Can detect invalid image (All whitespace)', () => {
     expect(dataValidator.isValidImage('                ')).toEqual(false);
 });
+
+/************************************************************************************************
+ *                              Testing Max Guest Image Validation                              *
+ ************************************************************************************************/
+test('[RESTAURANT MAX GUESTS] Can detect valid maxGuets (1)', () => {
+    expect(dataValidator.isValidMaxGuests(1)).toEqual(true);
+});
+
+test('[RESTAURANT MAX GUESTS] Can detect valid maxGuets (12223)', () => {
+    expect(dataValidator.isValidMaxGuests(12223)).toEqual(true);
+});
+
+test('[RESTAURANT MAX GUESTS] Can detect invalid maxGuets ("1")', () => {
+    expect(dataValidator.isValidMaxGuests('1')).toEqual(false);
+});
+
+test('[RESTAURANT MAX GUESTS] Can detect invalid maxGuets (0)', () => {
+    expect(dataValidator.isValidMaxGuests(0)).toEqual(false);
+});
+
+test('[RESTAURANT MAX GUESTS] Can detect invalid maxGuets (asdfd)', () => {
+    expect(dataValidator.isValidMaxGuests('asdfd')).toEqual(false);
+});
+
+test('[RESTAURANT MAX GUESTS] Can detect valid maxGuets (expression string)', () => {
+    expect(dataValidator.isValidMaxGuests('12+3')).toEqual(false);
+});
