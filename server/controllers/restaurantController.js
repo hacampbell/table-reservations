@@ -33,7 +33,8 @@ exports.CreateRestaurant = async (req, res) => {
             contactNumber: req.body.contactNumber,
             address: req.body.address,
             description: req.body.description,
-            image: req.body.image
+            image: req.body.image,
+            maxGuests: req.body.maxGuests
         });
 
         // Save the restraunt and notify the user 
