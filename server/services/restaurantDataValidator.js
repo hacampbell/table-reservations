@@ -76,6 +76,16 @@ exports.isValidImage = (image) => {
 }
 
 /**
+ * Checks that a valid number for the maximum number of guests at the
+ * restaurant has been entered. i.e. a number that is greater than 0. Returns
+ * true if a valid number has been entered, otherwise false.
+ * @param {Number} capacity 
+ */
+exports.isValidMaxGuests = (capacity) => {
+    return capacity > 0;
+}
+
+/**
  * Middleware that checks the user has sent valid data in their post request to
  * create a new restaurant. If bad data is found, a list of errors is returned
  * to the client and the next function is not called.
@@ -112,6 +122,10 @@ exports.isValidPost = (req, res, next) => {
 
     if (!req.body.image || !this.isValidImage(req.body.image)) {
         errors.push('Invalid image')
+    }
+
+    if (!req.body.maxGuests || !this.isValidMaxGuests(req.body.maxGuests)) {
+        errors.push('Invalid maxGuests')
     }
 
     if (errors.length > 0) {
@@ -159,6 +173,10 @@ exports.isValidPatch = (req, res, next) => {
 
     if (req.body.image && !this.isValidImage(req.body.image)) {
         errors.push('Invalid image')
+    }
+
+    if (req.body.maxGuests && !this.isValidMaxGuests(req.body.maxGuests)) {
+        errors.push('Invalid maxGuests')
     }
 
     if (errors.length > 0) {
