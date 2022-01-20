@@ -119,6 +119,41 @@ exports.isValidStatus = (status) => {
  * @param {*} next 
  */
 exports.ValidatePostData = (req, res, next) => {
+    let errors = [];
+
+    // Ensure that all the mandatory fields have been sent, and that they're populated with
+    // valid data. If they're not, add a useful error to the errors array and move on.
+
+    if (!(req.body.reservationName && this.isValidReservationName(req.body.reservationName))) {
+        errors.push("Invalid reservation name sent to server");
+    }
+
+    if (!(req.body.date && this.isValidReservationDate(req.body.date))) {
+        errors.push("Invalid reservation date sent to server");
+    }
+    
+
+    if (!(req.body.time && this.isValidReservationTime(req.body.time))) {
+        errors.push("Invalid reservation time sent to server");
+        console.log("bad");
+    }
+
+    if (!(req.body.numGuests && this.isValidGuests(req.body.numGuests))) {
+        errors.push("Invalid number of guests sent to server");
+    }
+
+    if (!(req.body.restaurantName && this.isValidRestaurant(req.body.restaurantName))) {
+        errors.push("Invalid restaurant name sent to server");
+    }
+
+    if (!(req.body.mobileNumber && this.isValidMobileNumber(req.body.mobileNumber))) {
+        errors.push("Invalid mobile number sent to server");
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({message: 'Unable to create reservation. Bad data sent to server.', error: errors});
+    }
+
     next();
 }
 
