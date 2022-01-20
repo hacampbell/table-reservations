@@ -37,11 +37,27 @@ exports.isValidReservationDate = (reservationDate) => {
  * sent a string that is a time between restaurant opening hour and 30 minutes before
  * closing.
  * 
- * @param {String} time 
+ * @param {String} time The time to make a reservation for
+ * @param {String} restaurantName The restaurant to make the reservation for
  * @returns true if a reservation time is valid
  */
-exports.isValidReservationTime = (time) => {
-    return 501;
+exports.isValidReservationTime = async (time, restaurantName) => {
+    // Get the restaurant we want to check our times for
+    const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
+    if (restaurant == null) return false;
+
+    // Extract opening and closing times
+    const times = restaurant.openingHours.split('-');
+
+    // Convert time strings into moment times
+    const resTime = moment(time, 'HH:mm', true);
+    const open = moment(times[0], 'HH:mm', true);
+    const close = moment(times[1], 'HH:mm', true);
+    const lastCall = close.clone().subtract(29, 'm'); // Take 29 minutes from time so as to make 30 valid
+
+    // Finally, determine if the reservation time we've been sent is valid
+    return resTime.isBetween(open, lastCall) || resTime.isSame(open);
+
 }
 
 /**
@@ -49,7 +65,8 @@ exports.isValidReservationTime = (time) => {
  * of guests is defined as being greater than 0 and less than the capacity of the
  * restaurant.
  * 
- * @param {number} guests 
+ * @param {number} guests The number of guests to make a reservation for
+ * @param {String} restaurantName The restaurant to make the reservation for
  * @returns true if the number of guests is valid
  */
 exports.isValidGuests = async (guests, restaurantName) => {
