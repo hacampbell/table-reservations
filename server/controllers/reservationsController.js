@@ -88,7 +88,32 @@ exports.CreateReservation = async (req, res) => {
  * @param {Object} res Our response object
  */
 exports.UpdateReservation = async (req, res) => {
-    res.status(501).json({message: 'UpdateReservation Pending Implementation', user: res.user});
+    const noEditFields = ['__v', '_id']; // List of fields we won't allow the user to edit
+
+    // Make sure only admins and the owner of a restaurant can update it's information
+    if (res.reservation.username !== res.user.username && res.user.role !== 'admin') {
+        return res.status(403).json({message: 'You do not have permission to perform that operation'});
+    }
+
+    try {
+        // Loop through the new data and update each field we've been sent that differs
+        // from what's currently stored in the database.
+        for (item in req.body) {
+            if (req.body[item] !== res.reservation[item] && res.reservation[item] != undefined && !noEditFields.includes(item)) {
+                res.reservation[item] = req.body[item];
+            }
+        }
+
+        // Set the reservation status back to Processing to await reconfirmation from
+        // the restaurant
+        res.reservation.status = 'Processing';
+
+        // Save the newly updated restaurant information and inform the user
+        await res.reservation.save();
+        res.status(200).json({message: 'Reservation updated'});
+    } catch (err) {
+        res.status(500).json({message: 'An error occured trying to update the reservation', error: err.message});
+    }
 }
 
 /**
