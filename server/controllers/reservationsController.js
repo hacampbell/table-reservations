@@ -46,7 +46,11 @@ exports.GetAllReservations = async (req, res) => {
  * @param {Object} res Our response object
  */
 exports.GetSingleReservation = async (req, res) => {
-    res.status(501).json({message: 'GetSingleReservation Pending Implementation', user: res.user});
+    if (res.reservation.username !== res.user.username && res.user.role !== 'admin') {
+        return res.status(403).json({message: 'You do not have permission to view that reservation'});
+    }
+
+    res.status(200).json(res.reservation);
 }
 
 /**
