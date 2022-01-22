@@ -38,12 +38,12 @@ exports.isValidReservationDate = (reservationDate) => {
  * closing.
  * 
  * @param {String} time The time to make a reservation for
- * @param {String} restaurantName The restaurant to make the reservation for
+ * @param {Object} restaurant The restaurant to make the reservation for
  * @returns true if a reservation time is valid
  */
-exports.isValidReservationTime = async (time, restaurantName) => {
+exports.isValidReservationTime = (time, restaurant) => {
     // Get the restaurant we want to check our times for
-    const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
+    //const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
     if (restaurant == null) return false;
 
     // Extract opening and closing times
@@ -66,11 +66,11 @@ exports.isValidReservationTime = async (time, restaurantName) => {
  * restaurant.
  * 
  * @param {number} guests The number of guests to make a reservation for
- * @param {String} restaurantName The restaurant to make the reservation for
+ * @param {Object} restaurantName The restaurant to make the reservation for
  * @returns true if the number of guests is valid
  */
-exports.isValidGuests = async (guests, restaurantName) => {
-    const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
+exports.isValidGuests = (guests, restaurant) => {
+    //const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
     if (restaurant == null) return false;
 
     return typeof guests == 'number' && guests <= restaurant.maxGuests;
@@ -79,11 +79,11 @@ exports.isValidGuests = async (guests, restaurantName) => {
 /**
  * Checks if a restaurant name is valid for a reservation. That is, if the restaurant 
  * exists.
- * @param {String} restaurantName 
+ * @param {Object} restaurant The restaurant to make the reservation for
  * @returns true if the name of a restaurant is valid
  */
-exports.isValidRestaurant = async (restaurantName) => {
-    const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
+exports.isValidRestaurant = (restaurant) => {
+    //const restaurant = await findRestaurant.GetRestaurantByName(restaurantName);
     return restaurant != null;
 }
 
@@ -133,16 +133,16 @@ exports.ValidatePostData = (req, res, next) => {
     }
     
 
-    if (!(req.body.time && this.isValidReservationTime(req.body.time))) {
+    if (!(req.body.time && this.isValidReservationTime(req.body.time, res.restaurant))) {
         errors.push("Invalid reservation time sent to server");
         console.log("bad");
     }
 
-    if (!(req.body.numGuests && this.isValidGuests(req.body.numGuests))) {
+    if (!(req.body.numGuests && this.isValidGuests(req.body.numGuests, res.restaurant))) {
         errors.push("Invalid number of guests sent to server");
     }
 
-    if (!(req.body.restaurantName && this.isValidRestaurant(req.body.restaurantName))) {
+    if (!(req.body.restaurantName && this.isValidRestaurant(req.body.restaurantName, res.restaurant))) {
         errors.push("Invalid restaurant name sent to server");
     }
 
@@ -180,16 +180,16 @@ exports.ValidatePatchData = (req, res, next) => {
     }
     
 
-    if (req.body.time && !this.isValidReservationTime(req.body.time)) {
+    if (req.body.time && !this.isValidReservationTime(req.body.time, res.restaurant)) {
         errors.push("Invalid reservation time sent to server");
         console.log("bad");
     }
 
-    if (req.body.numGuests && !this.isValidGuests(req.body.numGuests)) {
+    if (req.body.numGuests && !this.isValidGuests(req.body.numGuests, res.restaurant)) {
         errors.push("Invalid number of guests sent to server");
     }
 
-    if (req.body.restaurantName && !this.isValidRestaurant(req.body.restaurantName)) {
+    if (req.body.restaurantName && !this.isValidRestaurant(req.body.restaurantName, res.restaurant)) {
         errors.push("Invalid restaurant name sent to server");
     }
 
