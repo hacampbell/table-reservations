@@ -33,8 +33,25 @@
 
         methods: {
             // Used to send the details entered by the user to the server for login
-            Login: function () {
-                console.log(this.username, this.password);
+            async Login () {
+                const loginRoute = 'http://localhost:3000/user/login';
+
+                // Craft the payload we want to send
+                const payload = {
+                    username: this.username,
+                    password: this.password
+                }
+
+                // Make the request
+                const response = await fetch(loginRoute, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+
+                // Process and just display the result for now
+                const respData = await response.json();
+                console.log(respData);
             }
         }
     }
