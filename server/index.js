@@ -24,7 +24,6 @@ db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database!'));
 
 // ---------------------------------------------- CORS -----------------------------------------------
-// Configure CORS
 app.use( (req, res, next) => { 
     //Access-Control-Allow-Origin
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
@@ -32,7 +31,7 @@ app.use( (req, res, next) => {
     //Access-Control-Allow-Methods
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, DELETE, OPTIONS, PATCH')
 
-    //Access-Control-Allow-Headers. I have written this for you.
+    //Access-Control-Allow-Headers
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
 
     next()
