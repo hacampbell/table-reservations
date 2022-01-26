@@ -3,18 +3,18 @@
         <div class="login-container">
             <h1>Login</h1>
 
-            <form>
+            <form @submit.prevent="Login">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Enter username">
+                    <input type="text" class="form-control" id="username" placeholder="Enter username" v-model="username">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <input type="password" class="form-control" id="password" placeholder="Password" v-model="password">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
     </div>
@@ -22,10 +22,20 @@
 
 
 <script>
-
     export default {
-        mounted () {
-            console.log('Hello World!');
+        data() {
+            // Define fields for our data binding model
+            return {
+                username: '',
+                password: ''
+            }
+        },
+
+        methods: {
+            // Used to send the details entered by the user to the server for login
+            Login: function () {
+                console.log(this.username, this.password);
+            }
         }
     }
 </script>
