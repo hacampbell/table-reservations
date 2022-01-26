@@ -1,5 +1,5 @@
 <template>
-    <div id="particles" class="background">
+    <div class="background">
         <div class="login-container">
             <h1>Test</h1>
         </div>
@@ -36,8 +36,16 @@
 
     .login-container {
         background-color: rgb(214, 214, 214);
-        width: 30%;
+        width: 35%;
         height: 50%;
         justify-content: center;
+        border-radius: 5%;
+    }
+
+    @media only screen and (max-width: 900px) {
+        .login-container {
+            width: 70%;
+            height: 70%
+        }
     }
 </style>
