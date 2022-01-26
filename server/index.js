@@ -23,6 +23,21 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database!'));
 
+// ---------------------------------------------- CORS -----------------------------------------------
+// Configure CORS
+app.use( (req, res, next) => { 
+    //Access-Control-Allow-Origin
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+
+    //Access-Control-Allow-Methods
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, DELETE, OPTIONS, PATCH')
+
+    //Access-Control-Allow-Headers. I have written this for you.
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+
+    next()
+});
+
 // --------------------------------------------- Routing ---------------------------------------------
 
 // Routing for /user. Breaks off into /user/login and /user/register.
