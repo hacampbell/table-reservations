@@ -42,34 +42,20 @@
 </script>
 
 <style scoped>
-    form {
-        margin-top: 15%;
-        margin-left: 8%;
-        max-width: 85%;
-    }
-
     label {
-        margin-top: 5%;
-        margin-bottom: 1%;
+        margin: 5% 5% 1% 5%;
     }
 
     button {
-        margin-top: 5%;
-        min-width: 20%;
+        margin: 5%;
+        min-width: 25%;
     }
 
     .login-container {
         background-color: rgb(214, 214, 214);
-        width: 35%;
-        height: 50%;
-        justify-content: center;
-        border-radius: 5%;
-    }
-
-    @media only screen and (max-width: 900px) {
-        .login-container {
-            width: 70%;
-            height: 70%
-        }
+        min-width: 35%;
+        min-height: 60%;
+        border-radius: 3%;
+        padding: 5%;
     }
 </style>
