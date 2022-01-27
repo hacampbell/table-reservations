@@ -1,6 +1,9 @@
 <template>
     <div class="login-container">
-        <h1>Login</h1>
+        <h1>Drop Bear Table</h1>
+        <img src="@/assets/img/koala.png" />
+
+        <h2>Login</h2>
 
         <form @submit.prevent="SendLoginInfo">
             <div class="form-group">
@@ -42,8 +45,17 @@
 </script>
 
 <style scoped>
+    img {
+        max-width: 50%;
+    }
+
+    h2 {
+        margin-top: 5%;
+        margin-bottom: 0;
+    }
+
     label {
-        margin: 5% 5% 1% 5%;
+        margin: 2% 5% 0.5% 5%;
     }
 
     button {
