@@ -17,7 +17,7 @@
 
 <style>
     .background {
-        background-color: rgb(45, 46, 46);
+        background-color: rgb(35, 39, 61);
         position: fixed;
         width: 100%;
         height: 100%;

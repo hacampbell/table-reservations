@@ -65,7 +65,7 @@
     }
 
     .login-container {
-        background-color: rgb(214, 214, 214);
+        background-color: rgb(216, 215, 215);
         min-width: 35%;
         min-height: 60%;
         border-radius: 3%;
