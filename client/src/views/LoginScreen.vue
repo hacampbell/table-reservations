@@ -16,12 +16,6 @@
 </script>
 
 <style>
-    body {
-        margin: 0px 0px 0px 0px;
-        padding: 0px 0px 0px 0px;
-        border: 0px 0px 0px 0px;
-    }
-
     .background {
         background-color: rgb(45, 46, 46);
         position: fixed;
@@ -30,5 +24,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow-y: auto;
     }
 </style>
