@@ -2,7 +2,7 @@
     <div class="login-container">
         <h1>Login</h1>
 
-        <form @submit.prevent="Login">
+        <form @submit.prevent="SendLoginInfo">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" placeholder="Enter username" v-model="username">
@@ -19,9 +19,11 @@
 </template>
 
 <script>
+    import {Login} from '../../services/auth';
+
     export default {
         name: 'Login',
-        
+
         data() {
             // Define fields for our data binding model
             return {
@@ -32,25 +34,8 @@
 
         methods: {
             // Used to send the details entered by the user to the server for login
-            async Login () {
-                const loginRoute = 'http://localhost:3000/user/login';
-
-                // Craft the payload we want to send
-                const payload = {
-                    username: this.username,
-                    password: this.password
-                }
-
-                // Make the request
-                const response = await fetch(loginRoute, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
-                });
-
-                // Process and just display the result for now
-                const respData = await response.json();
-                console.log(respData);
+            async SendLoginInfo () {
+                await Login(this.username, this.password);
             }
         }
     }
