@@ -38,7 +38,8 @@
         methods: {
             // Used to send the details entered by the user to the server for login
             async SendLoginInfo () {
-                await Login(this.username, this.password);
+                const loginSucess = await Login(this.username, this.password);
+                console.log(`Login Success: ${loginSucess}`);
             }
         }
     }
