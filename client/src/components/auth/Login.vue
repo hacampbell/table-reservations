@@ -8,12 +8,12 @@
         <form @submit.prevent="SendLoginInfo">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" v-model="username">
+                <input type="text" class="form-control" id="username" placeholder="Username..." v-model="username">
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" v-model="password">
+                <input type="password" class="form-control" id="password" placeholder="Password..." v-model="password">
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
