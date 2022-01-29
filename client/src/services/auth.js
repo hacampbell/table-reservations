@@ -40,6 +40,29 @@ exports.Login = async (username, password) => {
  * @param {String} password The password to use to create a user
  */
 exports.Register = async (email, username, password) => {
-    console.log('Register');
-    console.log(`${email} ${username} ${password}`);
+    const registerRoute = primaryEndpoint + '/user/register';
+
+    // Create payload for rquest
+    const payload = {
+        email: email,
+        username: username,
+        password: password
+    }
+
+    // Send our request
+    const response = await fetch(registerRoute, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+    // Process response
+    const respData = await response.json();
+
+    // Return what we need to
+    if (response.status === 201) {
+        return true;
+    } else {
+        return respData;
+    }
 }
