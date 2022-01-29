@@ -38,8 +38,21 @@
         methods: {
             // Used to send the details entered by the user to the server for login
             async SendLoginInfo () {
-                const loginSucess = await Login(this.username, this.password);
-                console.log(`Login Success: ${loginSucess}`);
+                const loginResp = await Login(this.username, this.password);
+
+                // Check the user was able to log in
+                if (loginResp === false) {
+                    console.log('Unable to log in. Incorrect username or password.');
+                    return;
+                }
+
+                // Store access and refresh tokens
+                this.$store.dispatch('SetAccessToken', loginResp.accessToken);
+                this.$store.dispatch('SetRefreshToken', loginResp.refreshToken);
+
+                // Check that we actually stored the values
+                console.log(`Access Token: ${this.$store.getters.GetAccessToken}`);
+                console.log(`Refresh Token: ${this.$store.getters.GetRefreshToken}`);
             }
         }
     }
