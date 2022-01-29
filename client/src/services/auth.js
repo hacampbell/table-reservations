@@ -31,3 +31,15 @@ exports.Login = async (username, password) => {
     console.log(respData);
     return respData;
 }
+
+/**
+ * Sends a POST request to the register endpoint with details to create a new
+ * user.
+ * @param {String} email The email to use to create a user
+ * @param {String} username The username to use to create a user
+ * @param {String} password The password to use to create a user
+ */
+exports.Register = async (email, username, password) => {
+    console.log('Register');
+    console.log(`${email} ${username} ${password}`);
+}
