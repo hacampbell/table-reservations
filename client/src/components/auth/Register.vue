@@ -21,7 +21,7 @@
                 <input type="password" class="form-control" id="password" placeholder="Password..." v-model="password">
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
 </template>
