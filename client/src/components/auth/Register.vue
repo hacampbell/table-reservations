@@ -45,7 +45,14 @@
             // Used to send the details to create a new user
             async SendRegisterDetails () {
                 const response = await Register(this.email, this.username, this.password);
-                console.log(response);
+                
+                // If we successfully created a new user, send them to login
+                if (response === true) {
+                    this.$router.push({name: 'Login'}); 
+                } else {
+                    // Otherwise, for now, just console log the errors
+                    console.log(`${response.error}`);
+                }
             }
         }
     }
