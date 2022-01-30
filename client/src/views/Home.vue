@@ -1,18 +1,30 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="container-fluid">
+        <div class="row">
+            <SideNav activePage="home" />
+            <div class="col">
+                <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+                    <h1>Welcome to Drop Bear Table</h1>
+                    <h2>Never worry about dropping by unannounced again.</h2>
+                    <br/>
+                    <router-link to='/restaurants'>
+                        <input type="button" class="btn btn-primary" value="Show me the Restaurants!" />
+                    </router-link>
+                    <br/>
+                    <p>Developed by Henry Campbell</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+    import SideNav from '../components/nav/SideNav.vue';
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'Home',
+        components: {
+            SideNav,
+        }
+    }
 </script>
