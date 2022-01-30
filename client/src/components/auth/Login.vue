@@ -42,7 +42,12 @@
 
                 // Check the user was able to log in
                 if (loginResp === false) {
-                    console.log('Unable to log in. Incorrect username or password.');
+                    this.$toast.open({
+                        message: `Unable to login. Incorrect username or password.`,
+                        type: 'error',
+                        duration: 5000
+                    });
+
                     return;
                 }
 
