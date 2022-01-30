@@ -50,10 +50,6 @@
                 this.$store.dispatch('SetAccessToken', loginResp.accessToken);
                 this.$store.dispatch('SetRefreshToken', loginResp.refreshToken);
 
-                // Check that we actually stored the values
-                console.log(`Access Token: ${this.$store.getters.GetAccessToken}`);
-                console.log(`Refresh Token: ${this.$store.getters.GetRefreshToken}`);
-
                 // Redirect the user to the home page now they're logged in
                 this.$router.push({name: 'Home'});
             }
