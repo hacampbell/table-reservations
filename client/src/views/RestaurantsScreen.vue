@@ -1,7 +1,9 @@
 <template>
     <div class="container-fluid">
         <div id="content" class="row">
-            <SideNav activePage="restaurants" />
+            <div id="nav-area">
+                <SideNav activePage="restaurants" />
+            </div>
             <div class="col">
                 <div id="card-area" class="row row-cols-1 row-cols-md-3 g-4">
                     <RestaurantCard v-for="rest in this.restaurantList" :key="rest._id"
@@ -20,7 +22,14 @@
 </template>
 
 <style scoped>
+    #nav-area {
+        position: fixed;
+        width: 15%;
+        padding: 0;
+    }
+
     #card-area {
+        margin-left: 15%;
         padding-top: 1%;
     }
 </style>
