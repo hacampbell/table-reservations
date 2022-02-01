@@ -11,11 +11,16 @@
 
 <script>
     import SideNav from '../components/nav/SideNav.vue';
+    import {GetRestaurants} from '../services/restaurants';
 
     export default {
         name: 'Restaurants',
         components: {
             SideNav
+        },
+        async created() {
+            const restraunts = await GetRestaurants(this.$store.getters.GetAccessToken);
+            console.log(restraunts);
         }
     }
 </script>
