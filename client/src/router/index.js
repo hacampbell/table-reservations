@@ -22,6 +22,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "restaurants" */ '../views/RestaurantsScreen.vue')
     },
     {
+        path: '/reservations',
+        name: 'Reservations',
+        component: () => import(/* webpackChunkName: "reservations" */ '../views/ReservationsScreen.vue')
+    },
+    {
         path: '/:pathMatch(.*)*',
         name: 'PageNotFound',
         component: () => import(/* webpackChunkName: "pagenotfound" */ '../views/PageNotFound.vue')
