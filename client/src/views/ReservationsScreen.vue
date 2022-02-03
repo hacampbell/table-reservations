@@ -6,12 +6,17 @@
             </div>
             <div class="col">
                 <div id="card-area" class="row row-cols-1 row-cols-md-3 g-4">
-                    <h2>Test</h2>
-                    <h2>Test</h2>
-                    <h2>Test</h2>
-                    <h2>Test</h2>
-                    <h2>Test</h2>
-                    <h2>Test</h2>
+                    <ReservationCard v-for="res in this.reservationsList" :key="res._id"
+                        :resId="res._id"
+                        :restName="res.restaurantName"
+                        :guestName="res.reservationName"
+                        :phoneNumber="res.mobileNumber"
+                        :guestCount="res.numGuests"
+                        :resDate="res.date"
+                        :resTime="res.time"
+                        :status="res.status"
+                        :specialRequest="res.specialRequests"
+                    />
                 </div>
             </div>
         </div>
@@ -33,15 +38,18 @@
 
 <script>
     import SideNav from '../components/nav/SideNav.vue';
+    import ReservationCard from '../components/reservations/ReservationCard.vue';
+    import {GetReservations} from '../services/reservations'
 
     export default {
         name: 'Reservations',
         components: {
-            SideNav
+            SideNav,
+            ReservationCard
         },
 
         async created() {
-            // Get a list of the users reservations from the server
+            this.reservationsList = await GetReservations(this.$store.getters.GetAccessToken);
         },
 
         data () {
