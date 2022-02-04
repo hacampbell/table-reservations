@@ -25,11 +25,9 @@ exports.GetReservations = async (token) => {
 /**
  * Sends a POST request to the reservations endpoint creating a new reservation
  * @param {Object} payload An object containing fields for a new reservation
- * @returns {Object} The response from the server
+ * @returns True if the request was successful, otherwise the servers response
  */
-exports.CreatReservation = async (payload, token) => {
-    console.log(payload);
-
+exports.CreateReservation = async (payload, token) => {
     // Make the request to the server
     const response = await fetch(reservationsRoute, {
         method: 'POST',
@@ -39,6 +37,9 @@ exports.CreatReservation = async (payload, token) => {
         },
         body: JSON.stringify(payload)
     });
+
+    // If the request was successful, just return true
+    if (response.status === 201) return true;
 
     // Return the response from the server
     const respData = await response.json();
