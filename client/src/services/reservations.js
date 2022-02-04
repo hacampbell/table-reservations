@@ -24,25 +24,11 @@ exports.GetReservations = async (token) => {
 
 /**
  * Sends a POST request to the reservations endpoint creating a new reservation
- * @param {String} name The name to make the reservation under
- * @param {String} time The time to make the reservation for
- * @param {Number} guests The number of guests for the reservation
- * @param {String} rest The name of the restaurant to make the reservation at
- * @param {String} mobile The mobile number to use to make the reservation
- * @param {String} date The date of the reservation
- * @param {String} token The users access token
+ * @param {Object} payload An object containing fields for a new reservation
  * @returns {Object} The response from the server
  */
-exports.CreatReservation = async (name, time, guests, rest, mobile, date, token) => {
-    // Craft the body of the request
-    const payload = {
-        reservationName: name,
-        time: time,
-        numGuests: guests,
-        restaurantName: rest,
-        mobileNumber: mobile,
-        date: date
-    }
+exports.CreatReservation = async (payload, token) => {
+    console.log(payload);
 
     // Make the request to the server
     const response = await fetch(reservationsRoute, {
@@ -58,7 +44,6 @@ exports.CreatReservation = async (name, time, guests, rest, mobile, date, token)
     const respData = await response.json();
     return respData;
 }
-
 
 /**
  * Cancels a given reservation by its ID
