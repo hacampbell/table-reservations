@@ -18,8 +18,47 @@
 
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
+
+        <router-link to="/register" >Don't have an account? Register here.</router-link>
     </div>
 </template>
+
+<style scoped>
+    img {
+        max-width: 50%;
+    }
+
+    h2 {
+        margin-top: 5%;
+        margin-bottom: 0;
+    }
+
+    label {
+        margin: 2% 5% 0.5% 5%;
+    }
+
+    button {
+        margin: 5%;
+        min-width: 25%;
+    }
+
+    a {
+        color: rgb(46, 46, 46);
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .login-container {
+        background-color: rgb(216, 215, 215);
+        min-width: 35%;
+        min-height: 60%;
+        border-radius: 3%;
+        padding: 5% 5% 2% 5%;
+    }
+</style>
 
 <script>
     import {Login} from '../../services/auth';
@@ -61,31 +100,3 @@
         }
     }
 </script>
-
-<style scoped>
-    img {
-        max-width: 50%;
-    }
-
-    h2 {
-        margin-top: 5%;
-        margin-bottom: 0;
-    }
-
-    label {
-        margin: 2% 5% 0.5% 5%;
-    }
-
-    button {
-        margin: 5%;
-        min-width: 25%;
-    }
-
-    .login-container {
-        background-color: rgb(216, 215, 215);
-        min-width: 35%;
-        min-height: 60%;
-        border-radius: 3%;
-        padding: 5%;
-    }
-</style>
