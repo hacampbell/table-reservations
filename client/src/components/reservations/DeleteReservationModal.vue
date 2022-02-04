@@ -45,6 +45,12 @@
             async Delete() {
                 CancelReservation(this.resId, this.$store.getters.GetAccessToken);
                 this.CloseModal();
+
+                this.$toast.open({
+                    message: `Your reservation for ${this.restName} has been cancelled.`,
+                    type: 'success',
+                    duration: 5000
+                });
             }
         },
 
