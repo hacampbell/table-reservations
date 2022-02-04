@@ -58,3 +58,24 @@ exports.CreatReservation = async (name, time, guests, rest, mobile, date, token)
     const respData = await response.json();
     return respData;
 }
+
+
+/**
+ * Cancels a given reservation by its ID
+ * @param {String} id The id of the reservation to cancel
+ * @param {String} token The users access token
+ * @returns True if the request was successful, otherwise false
+ */
+exports.CancelReservation = async (id, token) => {
+    const cancelEndpoint = reservationsRoute + `/${id}`;
+
+    const response = await fetch(cancelEndpoint, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    return response.status === 204;
+}
