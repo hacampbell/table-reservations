@@ -10,27 +10,27 @@
                         <form id="reservationForm">
                             <div class="mb-3">
                                 <label for="reservation-name" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control" id="reservation-name">
+                                <input type="text" class="form-control" id="reservation-name" v-model="resName">
                             </div>
                             <div class="mb-3">
                                 <label for="reservation-phone" class="col-form-label">Phone:</label>
-                                <input type="text" class="form-control" id="reservation-phone">
+                                <input type="text" class="form-control" id="reservation-phone" v-model="phone">
                             </div>
                             <div class="mb-3">
                                 <label for="reservation-guests" class="col-form-label">Number of Guests:</label>
-                                <input type="number" class="form-control" id="reservation-guests">
+                                <input type="number" class="form-control" id="reservation-guests" v-model="guests">
                             </div>
                             <div class="mb-3">
                                 <label for="reservation-date" class="col-form-label">Date:</label>
-                                <input type="date" class="form-control" id="reservation-date">
+                                <input type="date" class="form-control" id="reservation-date" v-model="date">
                             </div>
                             <div class="mb-3">
                                 <label for="reservation-time" class="col-form-label">Time:</label>
-                                <input type="time" class="form-control" id="reservation-time">
+                                <input type="time" class="form-control" id="reservation-time" v-model="time">
                             </div>
                             <div class="mb-3">
                                 <label for="reservation-request" class="col-form-label">Special Requests:</label>
-                                <textarea class="form-control" id="reservation-request"></textarea>
+                                <textarea class="form-control" id="reservation-request" v-model="requests"></textarea>
                             </div>
                         </form>
                     </div>
@@ -53,21 +53,66 @@
 </style>
 
 <script>
+    import {CreateReservation} from '../../services/reservations';
+
     export default {
         name: 'RestaurantModal',
 
+        data() {
+            // Define our fields for model binding
+            return {
+                resName: '',
+                phone: '',
+                guests: '',
+                date: '',
+                time: '',
+                requests: ''
+            }
+        },
+
         methods: {
+            // Emits the event to close this modal
             CloseModal () {
                 this.$emit('close-restaurant-modal-event');
             },
 
+            // Calls the function to create a new reservation, and closes this modal
             SaveChanges () {
                 this.MakeReservation();
                 this.CloseModal();
             },
 
+            // Sends a request to create a new reservation in the system
             async MakeReservation () {
-                console.log('MakeReservation');
+                // Craft the payload we want to send
+                const payload = {
+                    reservationName: this.resName,
+                    time: this.time,
+                    numGuests: this.guests,
+                    restaurantName: this.restName,
+                    mobileNumber: this.phone,
+                    date: this.date,
+                    specialRequests: this.requests
+                }
+
+                // Get our response
+                const response = await CreateReservation(payload, this.$store.getters.GetAccessToken);
+                
+                // If the request was successful, let the user know, otherwise if it failed
+                // tell them what went wrong
+                if (response === true) {
+                    this.$toast.open({
+                        message: `Your reservation for ${this.restName} has been requested.`,
+                        type: 'success',
+                        duration: 5000
+                    });
+                } else {
+                    this.$toast.open({
+                        message: `Your reservation for ${this.restName} was unable to be made. Bad data sent to server.`,
+                        type: 'error',
+                        duration: 5000
+                    });
+                }
             }
         },
 
