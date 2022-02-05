@@ -4,6 +4,7 @@ export default createStore({
     state: {
         accessToken: '',   // Token to be sent with Authorization header
         refreshToken: '',  // Token used to efresh access token after it expires
+        resDataGlobal: []  // A list of all of the users reservations
     },
 
     mutations: {
@@ -15,6 +16,11 @@ export default createStore({
         //Stores a given refresh token in the vuex store
         SetRefreshToken (state, newToken) {
             state.refreshToken = newToken;
+        },
+
+        //Stores the new reservations
+        UpdateResData (state, newData) {
+            state.resDataGlobal =  newData;
         }
     },
 
@@ -27,6 +33,11 @@ export default createStore({
         // Sets the refresh token
         SetRefreshToken ({commit}, newToken) {
             commit('SetRefreshToken', newToken);
+        },
+
+        // Sets the global reservations 
+        UpdateResData ({commit}, newData) {
+            commit('UpdateResData', newData);
         }
     },
 
@@ -40,6 +51,11 @@ export default createStore({
         //Gets the stored refresh token
         GetRefreshToken (state) {
             return state.refreshToken
+        },
+
+        // Gets the stored reservations
+        GetResData (state) {
+            return state.resDataGlobal;
         }
     },
 
