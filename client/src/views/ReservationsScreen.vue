@@ -6,7 +6,7 @@
             </div>
             <div class="col">
                 <div id="card-area" class="row row-cols-1 row-cols-md-3 g-4">
-                    <ReservationCard v-for="res in this.reservationsList" :key="res._id"
+                    <ReservationCard v-for="res in this.DisplayReservations" :key="res._id"
                         :resId="res._id"
                         :restName="res.restaurantName"
                         :guestName="res.reservationName"
@@ -56,6 +56,13 @@
             // Store a list of reservations that we can loop over and display
             return {
                 reservationsList: []
+            }
+        },
+
+        computed: {
+            // Gets a list of reservations that have the processing or confirmed status
+            DisplayReservations() {
+                return this.reservationsList.filter(reservation => reservation.status === 'Processing' || reservation.status === 'Confirmed');
             }
         }
     }
