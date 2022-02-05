@@ -43,13 +43,16 @@
 
             // Sends a request to the server to delete this reservation
             async Delete() {
+                // Send our delete request
                 await CancelReservation(this.resId, this.$store.getters.GetAccessToken);
 
+                // Get and Set updated list of reservations
                 const updatedResData = await GetReservations(this.$store.getters.GetAccessToken);
                 this.$store.dispatch('UpdateResData', updatedResData);
 
                 this.CloseModal();
 
+                // Give the user some feedback
                 this.$toast.open({
                     message: `Your reservation for ${this.restName} has been cancelled.`,
                     type: 'success',
