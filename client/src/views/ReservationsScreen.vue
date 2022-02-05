@@ -49,20 +49,15 @@
         },
 
         async created() {
-            this.reservationsList = await GetReservations(this.$store.getters.GetAccessToken);
-        },
-
-        data () {
-            // Store a list of reservations that we can loop over and display
-            return {
-                reservationsList: []
-            }
+            const resData = await GetReservations(this.$store.getters.GetAccessToken);
+            this.$store.dispatch('UpdateResData', resData);
         },
 
         computed: {
             // Gets a list of reservations that have the processing or confirmed status
             DisplayReservations() {
-                return this.reservationsList.filter(reservation => reservation.status === 'Processing' || reservation.status === 'Confirmed');
+                const reservationList = this.$store.getters.GetResData;
+                return reservationList.filter(reservation => reservation.status === 'Processing' || reservation.status === 'Confirmed');
             }
         }
     }

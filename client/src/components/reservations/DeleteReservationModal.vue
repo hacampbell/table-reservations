@@ -30,7 +30,7 @@
 </style>
 
 <script>
-    import {CancelReservation} from '../../services/reservations';
+    import {CancelReservation, GetReservations} from '../../services/reservations';
 
     export default {
         name: 'DeleteReservationModal',
@@ -43,7 +43,11 @@
 
             // Sends a request to the server to delete this reservation
             async Delete() {
-                CancelReservation(this.resId, this.$store.getters.GetAccessToken);
+                await CancelReservation(this.resId, this.$store.getters.GetAccessToken);
+
+                const updatedResData = await GetReservations(this.$store.getters.GetAccessToken);
+                this.$store.dispatch('UpdateResData', updatedResData);
+
                 this.CloseModal();
 
                 this.$toast.open({
