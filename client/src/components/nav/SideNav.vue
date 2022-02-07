@@ -34,19 +34,8 @@
                     </li>
                 </ul>
                 <hr>
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../../assets/img/icons/user.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>Demo User</strong>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="#">Your reservation at Dorsia has been confirmed.</a></li>
-                        <li><a class="dropdown-item" href="#">Your reservation at Smith & Wollensky has been confirmed.</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
+                <div class="logout">
+                    <button type="button" class="btn btn-outline-light" @click="Signout">Logout</button>
                 </div>
             </div>
         </nav>
@@ -54,6 +43,10 @@
 </template>
 
 <style scoped>
+    button {
+        width: 50%;
+    }
+
     .icon {
         margin-left: 1%;
     }
@@ -76,12 +69,38 @@
 </style>
 
 <script>
+    import {Logout} from '../../services/auth';
+
     export default {
         name: 'SideNav',
+
         props: {
             activePage: {
                 type: String,
                 required: true
+            }
+        },
+
+        methods: {
+            // Handles top level logic for logging a user out
+            async Signout () {
+                // Send the request to log the user out
+                const response = await Logout(this.$store.getters.GetRefreshToken);
+
+                // Check that we successfully signed out
+                if (response) {
+                    this.$store.dispatch('SetAccessToken', '');
+                    this.$store.dispatch('SetRefreshToken', '');
+                    this.$router.push('/login');
+                    return;
+                }
+
+                // If something went wrong, let the user know that they should contact us, because that'd pretty weird.
+                this.$toast.open({
+                    message: `Your logout request was unable to be processed. Please contact us relating to this issue.`,
+                    type: 'error',
+                    duration: 6000
+                });
             }
         }
     }
