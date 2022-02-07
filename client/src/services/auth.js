@@ -66,3 +66,22 @@ exports.Register = async (email, username, password) => {
         return respData;
     }
 }
+
+/**
+ * Sends a DELETE request to log a user out by invalidating their refresh token
+ * @param {String} token The users refresh token to be used to logout
+ */
+exports.Logout = async (token) => {
+    const logoutRoute = primaryEndpoint + '/user/logout';
+    const payload = {refreshToken: token};
+
+    // Send out delete request to log out
+    const response = await fetch(logoutRoute, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+    // Check that we successfully logged out
+    return response.status === 204;
+}
