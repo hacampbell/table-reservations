@@ -19,6 +19,8 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
 
+        <p>Use username 'demo' and password 'password' to sign into a demo account.</p>
+
         <router-link to="/register" >Don't have an account? Register here.</router-link>
     </div>
 </template>
@@ -40,6 +42,11 @@
     button {
         margin: 5%;
         min-width: 25%;
+    }
+
+    p {
+        color: slategrey;
+        font-style: italic;
     }
 
     a {
