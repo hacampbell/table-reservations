@@ -82,6 +82,15 @@
         border-radius: 3%;
         padding: 2% 5%;
     }
+
+    @media screen and (max-width: 992px) { 
+        .register-container {
+            min-width: 90%;
+            min-height: 100%;
+            border-radius: 0;
+            padding: 2% 5%;
+        }
+    }
 </style>
 
 <script>
