@@ -56,6 +56,12 @@ app.get('/', (req, res) => {
   res.json({message: 'Hello World!'});
 });
 
+// ------------------------------------------ Run Demo Setup -----------------------------------------
+// Please note that the following is only for the purpose of demoing this web app. This would
+// obviously be removed in an actual deployment.
+const demoSetup = require('./services/setupBaseData');
+demoSetup.CreateDemoData();
+
 // ---------------------------------------------------------------------------------------------------
 
 // Listen for connections to our web server.
