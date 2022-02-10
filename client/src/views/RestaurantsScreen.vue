@@ -7,13 +7,13 @@
             <div class="col">
                 <div id="card-area" class="row row-cols-1 row-cols-md-3 g-4">
                     <RestaurantCard v-for="rest in this.restaurantList" :key="rest._id"
-                    :restName="rest.name"
-                    :description="rest.description"
-                    :address="rest.address"
-                    :contact="rest.contactNumber"
-                    :hours="rest.openingHours"
-                    :days="rest.openingDays"
-                    image="dorsia.jpeg" 
+                        :restName="rest.name"
+                        :description="rest.description"
+                        :address="rest.address"
+                        :contact="rest.contactNumber"
+                        :hours="rest.openingHours"
+                        :days="rest.openingDays"
+                        image="dorsia.jpeg" 
                     />
                 </div>
             </div>
