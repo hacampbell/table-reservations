@@ -5,9 +5,9 @@
 
             <div class="card-body">
                 <h5 class="card-title">{{restName}}</h5>
-                <p class="card-text">Address: {{address}}</p>
-                <p class="card-text">Contact: {{contact}}</p>
-                <p class="card-text">Open: {{hours}} {{days}}</p>
+                <p class="card-text"><strong>Address:</strong> {{address}}</p>
+                <p class="card-text"><strong>Contact:</strong> {{contact}}</p>
+                <p class="card-text"><strong>Open:</strong> {{hours}} {{days}}</p>
                 <p class="card-text">{{description}}</p>
             </div>
 
@@ -22,6 +22,10 @@
 </template>
 
 <style scoped>
+    h5 {
+        font-weight: bolder;
+    }
+
     .card-title {
         margin-bottom: 1%
     }
