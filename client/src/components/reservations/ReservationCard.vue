@@ -45,6 +45,10 @@
 </template>
 
 <style scoped>
+    h5 {
+        font-weight: bold;
+    }
+
     p {
         margin: 1%;
     }
