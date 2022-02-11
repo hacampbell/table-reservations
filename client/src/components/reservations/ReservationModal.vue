@@ -7,6 +7,12 @@
                         <h4 class="modal-title">Edit Your Reservation For {{restName}}</h4>
                     </div>
                     <div class="modal-body">
+                        <p v-if="errors.length">
+                            Please correct the following error(s):
+                            <ul>
+                                <li class="text-danger" v-for="(error, index) in this.errors" :key="index">{{ error }}</li>
+                            </ul>
+                        </p>
                         <form>
                             <div class="mb-3">
                                 <label for="reservation-name" class="col-form-label">Name:</label>
@@ -63,6 +69,9 @@
 
             // Sends a request to the server with new data from this form to update this reservation
             async SubmitUpdate () {
+                // Clean our our list of errors so they're only relevent to this request
+                this.errors = [];
+
                 // Create our payload
                 const payload = {
                     restaurantName: this.restName,
@@ -72,6 +81,9 @@
                     time: this.newResTime,
                     specialRequests: this.newResRequests
                 };
+
+                console.log('Payload is:');
+                console.log(payload);
 
                 // Send out request
                 const response = await UpdateReservation(payload, this.resId, this.$store.getters.GetAccessToken);
@@ -102,11 +114,7 @@
                     duration: 7000
                 });
 
-                this.$toast.open({
-                    message: response.error,
-                    type: 'error',
-                    duration: 7000
-                });
+                this.errors = response.error;
             }
         },
 
@@ -148,7 +156,8 @@
                 newResPhone: this.phoneNumber,
                 newResGuests: this.guestCount,
                 newResTime: this.resTime,
-                newResRequests: this.specialRequest
+                newResRequests: this.specialRequest,
+                errors: []
             }
         }
     }
