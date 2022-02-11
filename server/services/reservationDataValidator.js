@@ -9,6 +9,7 @@ const findRestaurant = require('../services/findRestaurantMiddleware');
  * @returns true in the case that a valid name has been given.
  */
 exports.isValidReservationName = (reservationName) => {
+    console.log('isValidReservationName');
     return reservationName.trim().length >= 2
 }
 
@@ -170,30 +171,34 @@ exports.ValidatePatchData = (req, res, next) => {
 
     // Ensure we've got valid data for the fields we've been sent. If the data is invalid,
     // add a helpful error message to the errors array and move on.
+    // NOTE: We're checking that the types of the variables are not undefined instead of just
+    // using 'req.body.reservationName' so as to avoid issues with this returning false, i.e.
+    // the code thinking it doesn't exist, due to '' being a falsy value for strings in javascript.
 
-    if (req.body.reservationName && !this.isValidReservationName(req.body.reservationName)) {
+    if (typeof req.body.reservationName !== 'undefined' && !this.isValidReservationName(req.body.reservationName)) {
         errors.push("Invalid reservation name sent to server");
+        console.log('isValidReservationName failed');
     }
 
-    if (req.body.date && !this.isValidReservationDate(req.body.date)) {
+    if (typeof req.body.date !== 'undefined' && !this.isValidReservationDate(req.body.date)) {
         errors.push("Invalid reservation date sent to server");
     }
     
 
-    if (req.body.time && !this.isValidReservationTime(req.body.time, res.restaurant)) {
+    if (typeof req.body.time !== 'undefined' && !this.isValidReservationTime(req.body.time, res.restaurant)) {
         errors.push("Invalid reservation time sent to server");
         console.log("bad");
     }
 
-    if (req.body.numGuests && !this.isValidGuests(req.body.numGuests, res.restaurant)) {
+    if (typeof req.body.numGuests !== 'undefined' && !this.isValidGuests(req.body.numGuests, res.restaurant)) {
         errors.push("Invalid number of guests sent to server");
     }
 
-    if (req.body.restaurantName && !this.isValidRestaurant(req.body.restaurantName, res.restaurant)) {
+    if (typeof req.body.restaurantName !== 'undefined' && !this.isValidRestaurant(req.body.restaurantName, res.restaurant)) {
         errors.push("Invalid restaurant name sent to server");
     }
 
-    if (req.body.mobileNumber && !this.isValidMobileNumber(req.body.mobileNumber)) {
+    if (typeof req.body.mobileNumber !== 'undefined' && !this.isValidMobileNumber(req.body.mobileNumber)) {
         errors.push("Invalid mobile number sent to server");
     }
 
