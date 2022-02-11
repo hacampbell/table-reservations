@@ -20,7 +20,7 @@ exports.isValidReservationName = (reservationName) => {
  * @returns true in the case of a valid mobile number, false otherwise.
  */
 exports.isValidMobileNumber = (mobile) => {
-    return /[0-9]{10}/.test(mobile);
+    return /[0-9]{10}/.test(mobile) && mobile.length === 10;
 }
 
 /**
