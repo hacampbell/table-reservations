@@ -13,6 +13,7 @@
                         :contact="rest.contactNumber"
                         :hours="rest.openingHours"
                         :days="rest.openingDays"
+                        :maxGuests="rest.maxGuests"
                         image="dorsia.jpeg" 
                     />
                 </div>

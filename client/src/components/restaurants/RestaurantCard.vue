@@ -17,7 +17,12 @@
                 </button>
             </div>
         </div>
-        <RestaurantModal v-if="displayModal" @close-restaurant-modal-event="HideModal" :restName=restName />
+        <RestaurantModal v-if="displayModal" 
+            @close-restaurant-modal-event="HideModal" 
+            :restName=restName 
+            :maxGuests="maxGuests" 
+            :openHours="hours" 
+        />
     </div>
 </template>
 
@@ -72,6 +77,10 @@
             },
             image: {
                 type: String,
+                required: true
+            },
+            maxGuests: {
+                type: Number,
                 required: true
             }
         },

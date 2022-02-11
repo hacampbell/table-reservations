@@ -7,6 +7,12 @@
                         <h5 class="modal-title">Make a Reservation for {{restName}}</h5>
                     </div>
                     <div class="modal-body">
+                        <p v-if="errors.length">
+                            Please correct the following error(s):
+                            <ul>
+                                <li class="text-danger" v-for="(error, index) in this.errors" :key="index">{{ error }}</li>
+                            </ul>
+                        </p>
                         <form id="reservationForm">
                             <div class="mb-3">
                                 <label for="reservation-name" class="col-form-label">Name:</label>
@@ -36,7 +42,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="CloseModal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="SaveChanges">Submit</button>
+                        <button type="button" class="btn btn-primary" @click="MakeReservation">Submit</button>
                     </div>
                 </div>
             </div>
@@ -54,6 +60,7 @@
 
 <script>
     import {CreateReservation} from '../../services/reservations';
+    import {isValidReservation} from '../../services/reservationDataValidation';
 
     export default {
         name: 'RestaurantModal',
@@ -66,7 +73,8 @@
                 guests: '',
                 date: '',
                 time: '',
-                requests: ''
+                requests: '',
+                errors: []
             }
         },
 
@@ -76,14 +84,11 @@
                 this.$emit('close-restaurant-modal-event');
             },
 
-            // Calls the function to create a new reservation, and closes this modal
-            SaveChanges () {
-                this.MakeReservation();
-                this.CloseModal();
-            },
-
             // Sends a request to create a new reservation in the system
             async MakeReservation () {
+                // Reset our list of errors so that it will only contain issues with this request
+                this.errors = [];
+
                 // Craft the payload we want to send
                 const payload = {
                     reservationName: this.resName,
@@ -95,17 +100,25 @@
                     specialRequests: this.requests
                 }
 
+                // Check that the data we intend to send to the server is valid
+                const errors = isValidReservation(payload, this.maxGuests, this.openHours);
+                if (errors.length > 0) {
+                    this.errors = errors;
+                    return;
+                }
+
                 // Get our response
                 const response = await CreateReservation(payload, this.$store.getters.GetAccessToken);
                 
-                // If the request was successful, let the user know, otherwise if it failed
-                // tell them what went wrong
+                // If the request was successful, let the user know, otherwise if it failed tell the 
+                // user what went wrong
                 if (response === true) {
                     this.$toast.open({
                         message: `Your reservation for ${this.restName} has been requested.`,
                         type: 'success',
                         duration: 5000
                     });
+                    this.CloseModal(); // The reservation has been made, close this modal
                 } else {
                     this.$toast.open({
                         message: `Your reservation for ${this.restName} was unable to be made. Bad data sent to server.`,
@@ -119,6 +132,14 @@
         props: {
             restName: {
                 type: String,
+                required: true
+            }, 
+            openHours: {
+                type: String,
+                required: true
+            },
+            maxGuests: {
+                type: Number,
                 required: true
             }
         }
