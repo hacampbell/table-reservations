@@ -85,3 +85,21 @@ exports.Logout = async (token) => {
     // Check that we successfully logged out
     return response.status === 204;
 }
+
+/**
+ * Decodes and returns the body of a given JWT
+ * @param {String} token The JWT to decode
+ * @returns {Object} The decoded payload of the JWT
+ */
+exports.DecodeTokenPayload = (token) => {
+    try {
+        // Split our token up so we can get the payload
+        const splitToken = token.split('.');
+
+        // Decode and return our payload as a JSON object
+        const payload = Buffer.from(splitToken[1], 'base64').toString();
+        return JSON.parse(payload);
+    } catch (err) {
+        console.error(`Error in DecodeTokenPayload: ${err.message} This is probably caused by the function being given an empty token.`);
+    }
+}
