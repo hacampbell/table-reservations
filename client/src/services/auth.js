@@ -93,6 +93,9 @@ exports.Logout = async (token) => {
  */
 exports.DecodeTokenPayload = (token) => {
     try {
+        // If we've been given a token that's empty, just send back an empty object
+        if (token === '' || typeof token === undefined) return {};
+
         // Split our token up so we can get the payload
         const splitToken = token.split('.');
 
@@ -100,6 +103,22 @@ exports.DecodeTokenPayload = (token) => {
         const payload = Buffer.from(splitToken[1], 'base64').toString();
         return JSON.parse(payload);
     } catch (err) {
-        console.error(`Error in DecodeTokenPayload: ${err.message} This is probably caused by the function being given an empty token.`);
+        console.error(`Error trying to decode JWT: ${err.message}`);
     }
+}
+
+/**
+ * Checks if a given access token has expired
+ * @param {String} token The users access token to check for validity
+ * @returns {Boolean} True if the access token is set and has not expired, otherwise false
+ */
+exports.ValidateAccessToken = (token) => {
+    // Check we've actually been given a token. If not, it's not valid.
+    if (token === '' || typeof token === undefined) return false;
+
+    // Decode our payload
+    const payload = this.DecodeTokenPayload(token);
+    
+    // Check that the token hasn't expired
+    return (Date.now() <= payload.exp * 1000);
 }
