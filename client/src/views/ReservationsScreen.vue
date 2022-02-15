@@ -40,6 +40,7 @@
     import SideNav from '../components/nav/SideNav.vue';
     import ReservationCard from '../components/reservations/ReservationCard.vue';
     import {GetReservations} from '../services/reservations'
+    import {ValidateAccessToken} from '../services/auth';
 
     export default {
         name: 'Reservations',
@@ -49,6 +50,12 @@
         },
 
         async created() {
+            // Make sure that the user is logged in, if not redirect them to do so
+            if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
+                this.$router.push({name: 'Login'});
+                return;
+            }
+            
             const resData = await GetReservations(this.$store.getters.GetAccessToken);
             this.$store.dispatch('UpdateResData', resData);
         },

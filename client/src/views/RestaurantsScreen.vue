@@ -39,6 +39,7 @@
     import SideNav from '../components/nav/SideNav.vue';
     import RestaurantCard from '../components/restaurants/RestaurantCard.vue';
     import {GetRestaurants} from '../services/restaurants';
+    import {ValidateAccessToken} from '../services/auth';
 
     export default {
         name: 'Restaurants',
@@ -48,6 +49,12 @@
         },
 
         async created() {
+            // Check that the user is logged in
+            if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
+                this.$router.push({name: 'Login'});
+                return;
+            }
+
             // Get a list of restaurants from the server
             const restaurants = await GetRestaurants(this.$store.getters.GetAccessToken);
             console.log(restaurants);

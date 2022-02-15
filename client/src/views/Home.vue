@@ -20,6 +20,7 @@
 
 <script>
     import SideNav from '../components/nav/SideNav.vue';
+    import {ValidateAccessToken} from '../services/auth';
 
     export default {
         name: 'Home',
@@ -33,7 +34,7 @@
             console.log(`Access Token: ${this.$store.getters.GetAccessToken}`);
             console.log(`Refresh Token: ${this.$store.getters.GetRefreshToken}`);
 
-            if (this.$store.getters.GetAccessToken === '' || this.$store.getters.GetRefreshToken === '') {
+            if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
                 this.$router.push({name: 'Login'});
             }
         }
