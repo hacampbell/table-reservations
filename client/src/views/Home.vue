@@ -31,9 +31,6 @@
 
         created () {
             // Make sure that the user is logged in, if not redirect them to do so
-            console.log(`Access Token: ${this.$store.getters.GetAccessToken}`);
-            console.log(`Refresh Token: ${this.$store.getters.GetRefreshToken}`);
-
             if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
                 this.$router.push({name: 'Login'});
             }
