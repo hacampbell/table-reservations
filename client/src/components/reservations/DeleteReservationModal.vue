@@ -31,6 +31,7 @@
 
 <script>
     import {CancelReservation, GetReservations} from '../../services/reservations';
+    import {CheckAndRefreshToken} from '../../services/auth';
 
     export default {
         name: 'DeleteReservationModal',
@@ -43,6 +44,9 @@
 
             // Sends a request to the server to delete this reservation
             async Delete() {
+                // Before we make our request, ensure we have a valid access token
+                await CheckAndRefreshToken(this);
+
                 // Send our delete request
                 await CancelReservation(this.resId, this.$store.getters.GetAccessToken);
 

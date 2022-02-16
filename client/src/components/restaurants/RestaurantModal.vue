@@ -61,6 +61,7 @@
 <script>
     import {CreateReservation} from '../../services/reservations';
     import {isValidReservation} from '../../services/reservationDataValidation';
+    import {CheckAndRefreshToken} from '../../services/auth';
 
     export default {
         name: 'RestaurantModal',
@@ -106,6 +107,9 @@
                     this.errors = errors;
                     return;
                 }
+
+                // Before we make our request, ensure we have a valid access token
+                await CheckAndRefreshToken(this);
 
                 // Get our response
                 const response = await CreateReservation(payload, this.$store.getters.GetAccessToken);

@@ -57,6 +57,7 @@
 
 <script>
     import {UpdateReservation, GetReservations} from '../../services/reservations';
+    import {CheckAndRefreshToken} from '../../services/auth';
 
     export default {
         name: 'ReservationModal',
@@ -84,6 +85,9 @@
 
                 console.log('Payload is:');
                 console.log(payload);
+
+                // Before we make our request, ensure we have a valid access token
+                await CheckAndRefreshToken(this);
 
                 // Send out request
                 const response = await UpdateReservation(payload, this.resId, this.$store.getters.GetAccessToken);
