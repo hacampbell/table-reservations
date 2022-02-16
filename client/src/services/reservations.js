@@ -5,7 +5,8 @@ const reservationsRoute = primaryEndpoint + '/reservations';
  * Sends a GET request to the reservations endpoint, returning the data from
  * said request
  * @param {String} token The users authorisation token
- * @returns {Object} The response from the server
+ * @returns The response from the server if the request was successful, 
+ * otherwise false
  */
 exports.GetReservations = async (token) => {
     // Make request to get reservations
@@ -16,6 +17,9 @@ exports.GetReservations = async (token) => {
             'Authorization': `Bearer ${token}`
         }
     });
+
+    // if something went wrong making the request, let the caller know
+    if (response.status !== 200) return false;
 
     // Return the response from the server
     const respData = await response.json();
