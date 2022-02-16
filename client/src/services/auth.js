@@ -122,3 +122,27 @@ exports.ValidateAccessToken = (token) => {
     // Check that the token hasn't expired
     return (Date.now() <= payload.exp * 1000);
 }
+
+/**
+ * Sends a POST request to the token endpoint to refresh a given users access token
+ * @param {String} token The users refresh token
+ * @returns The body of the request if successful, otherwise false
+ */
+exports.RefreshAccessToken = async (token) => {
+    const tokenEndpoint = primaryEndpoint + '/user/token';
+    const payload = {refreshToken: token};
+
+    // Send request to refresh token
+    const response = await fetch(tokenEndpoint, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+    // if we didn't successfully refresh the access token, break out
+    if (response.status !== 200) return false;
+
+    // If all went well, send the caller back the data
+    const data = await response.json();
+    return data;
+}
