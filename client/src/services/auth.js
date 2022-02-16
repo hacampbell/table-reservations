@@ -146,3 +146,23 @@ exports.RefreshAccessToken = async (token) => {
     const data = await response.json();
     return data.accessToken;
 }
+
+/**
+ * Used to check the user has a valid access and, if not, refreshes said token.
+ * @param {Object} caller The Caller of the function. Allows access to Vue calls
+ */
+exports.CheckAndRefreshToken = async (caller) => {
+    // Check that the access token we currently have is valid, if not, refresh it
+    if (!this.ValidateAccessToken(caller.$store.getters.GetAccessToken)) {
+        const newAccessToken = await this.RefreshAccessToken(caller.$store.getters.GetRefreshToken);
+
+        // If something went wrong refreshing our access token, send the user back to login
+        if (newAccessToken === false) {
+            caller.$router.push({name: 'Login'});
+            return; 
+        }
+
+        // Otherwise, set our new access token.
+        caller.$store.dispatch('SetAccessToken', newAccessToken);
+    }
+}
