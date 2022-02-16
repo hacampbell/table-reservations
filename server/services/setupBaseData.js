@@ -88,7 +88,8 @@ SetupDemoUsers = async () => {
     const admin = new User({
         username: 'admin',
         email: 'admin@dbt.com',
-        password: adminPass
+        password: adminPass,
+        role: 'admin'
     });
 
     await admin.save();
@@ -99,7 +100,8 @@ SetupDemoUsers = async () => {
     const restaurateur = new User({
         username: 'Demo Restaurateur',
         email: 'restaurateur@dbt.com',
-        password: restPass
+        password: restPass,
+        role: 'restaurateur'
     });
 
     await restaurateur.save();
@@ -110,7 +112,8 @@ SetupDemoUsers = async () => {
     const user = new User({
         username: 'demo',
         email: 'demo@dbt.com',
-        password: userPass
+        password: userPass,
+        role: 'user'
     });
 
     await user.save();
