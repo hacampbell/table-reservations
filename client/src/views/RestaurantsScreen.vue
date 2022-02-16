@@ -39,7 +39,7 @@
     import SideNav from '../components/nav/SideNav.vue';
     import RestaurantCard from '../components/restaurants/RestaurantCard.vue';
     import {GetRestaurants} from '../services/restaurants';
-    import {ValidateAccessToken} from '../services/auth';
+    import {ValidateAccessToken, RefreshAccessToken} from '../services/auth';
 
     export default {
         name: 'Restaurants',
@@ -49,15 +49,30 @@
         },
 
         async created() {
-            // Check that the user is logged in
-            if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
+            const refreshToken = this.$store.getters.GetRefreshToken;
+
+            // Make sure that the user is logged in, if not redirect them to do so
+            if (refreshToken === '') {
                 this.$router.push({name: 'Login'});
                 return;
             }
 
+            // Check that the access token we currently have is valid, if not, refresh it
+            if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
+                const newAccessToken = await RefreshAccessToken(refreshToken);
+
+                // If something went wrong refreshing our access token, send the user back to login
+                if (newAccessToken === false) {
+                    this.$router.push({name: 'Login'});
+                    return; 
+                }
+
+                // Otherwise, set our new access token.
+                this.$store.dispatch('SetAccessToken', newAccessToken);
+            }
+
             // Get a list of restaurants from the server
             const restaurants = await GetRestaurants(this.$store.getters.GetAccessToken);
-            console.log(restaurants);
             
             // If we couldn't get the restaurant list, just display an error for now
             if (!restaurants) {
