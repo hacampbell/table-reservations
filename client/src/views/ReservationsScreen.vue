@@ -40,7 +40,7 @@
     import SideNav from '../components/nav/SideNav.vue';
     import ReservationCard from '../components/reservations/ReservationCard.vue';
     import {GetReservations} from '../services/reservations'
-    import {ValidateAccessToken} from '../services/auth';
+    import {ValidateAccessToken, RefreshAccessToken} from '../services/auth';
 
     export default {
         name: 'Reservations',
@@ -50,12 +50,29 @@
         },
 
         async created() {
+            const refreshToken = this.$store.getters.GetRefreshToken;
+
             // Make sure that the user is logged in, if not redirect them to do so
-            if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
+            if (refreshToken === '') {
                 this.$router.push({name: 'Login'});
                 return;
             }
-            
+
+            // Check that the access token we currently have is valid, if not, refresh it
+            if (!ValidateAccessToken(this.$store.getters.GetAccessToken)) {
+                const newAccessToken = await RefreshAccessToken(refreshToken);
+
+                // If something went wrong refreshing our access token, send the user back to login
+                if (newAccessToken === false) {
+                    this.$router.push({name: 'Login'});
+                    return; 
+                }
+
+                // Otherwise, set our new access token.
+                this.$store.dispatch('SetAccessToken', newAccessToken);
+            }
+
+            // Finally, get the users reservations
             const resData = await GetReservations(this.$store.getters.GetAccessToken);
             this.$store.dispatch('UpdateResData', resData);
         },
