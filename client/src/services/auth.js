@@ -126,7 +126,7 @@ exports.ValidateAccessToken = (token) => {
 /**
  * Sends a POST request to the token endpoint to refresh a given users access token
  * @param {String} token The users refresh token
- * @returns The body of the request if successful, otherwise false
+ * @returns The new access token if successful, otherwise false
  */
 exports.RefreshAccessToken = async (token) => {
     const tokenEndpoint = primaryEndpoint + '/user/token';
@@ -144,5 +144,5 @@ exports.RefreshAccessToken = async (token) => {
 
     // If all went well, send the caller back the data
     const data = await response.json();
-    return data;
+    return data.accessToken;
 }
