@@ -174,12 +174,20 @@ test('[RESTAURANT DESCRIPTION] Can detect invalid description (All white space)'
 /************************************************************************************************
  *                              Testing Restaurant Image Validation                             *
  ************************************************************************************************/
-test('[RESTAURANT IMAGE] Can detect valid image (src/assets/img/name.png)', () => {
-    expect(dataValidator.isValidImage('src/assets/img/name.png')).toEqual(true);
+test('[RESTAURANT IMAGE] Can detect valid image (name.png)', () => {
+    expect(dataValidator.isValidImage('name.png')).toEqual(true);
 });
 
-test('[RESTAURANT IMAGE] Can detect valid image (src/assets/img/name.png with white space)', () => {
-    expect(dataValidator.isValidImage('  src/assets/img/name.png  ')).toEqual(true);
+test('[RESTAURANT IMAGE] Can detect valid image (name.jpg)', () => {
+    expect(dataValidator.isValidImage('name.jpg')).toEqual(true);
+});
+
+test('[RESTAURANT IMAGE] Can detect valid image (name.jpeg)', () => {
+    expect(dataValidator.isValidImage('name.jpeg')).toEqual(true);
+});
+
+test('[RESTAURANT IMAGE] Can detect valid image (name.png with white space)', () => {
+    expect(dataValidator.isValidImage('  name.png  ')).toEqual(true);
 });
 
 test('[RESTAURANT IMAGE] Can detect invalid image (Does not match pattern)', () => {
@@ -187,7 +195,7 @@ test('[RESTAURANT IMAGE] Can detect invalid image (Does not match pattern)', () 
 });
 
 test('[RESTAURANT IMAGE] Can detect invalid image (Does not match pattern)', () => {
-    expect(dataValidator.isValidImage('src/assets/pics/name.png')).toEqual(false);
+    expect(dataValidator.isValidImage('src/assets/pics/na me.png')).toEqual(false);
 });
 
 test('[RESTAURANT IMAGE] Can detect invalid image (Bad data)', () => {
