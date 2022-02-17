@@ -29,7 +29,7 @@ SetupDemoRestaurants = async () => {
         contactNumber: '0404004040',
         address: '182 Williams Avenue, Demo City',
         description: 'A highly exclusive and much loved location in New York often frequented by the young professionals of Wall Street.',
-        image: 'src/assets/img/dorsia.jpeg',
+        image: 'dorsia.jpeg',
         maxGuests: 32
     });
 
@@ -43,7 +43,7 @@ SetupDemoRestaurants = async () => {
         contactNumber: '1234567890',
         address: '89 E, 42nd Street, New York',
         description: 'A grandeous location in New York. Perfect for client lunches and solo retreats alike. Always popular with the men of Maddison Avenue.',
-        image: 'src/assets/img/gcoyster.jpeg',
+        image: 'grand-oyster.png',
         maxGuests: 48
     });
 
@@ -57,7 +57,7 @@ SetupDemoRestaurants = async () => {
         contactNumber: '0987654321',
         address: '123 Fake Street, Fake City',
         description: 'Good food, good vibes, even better company.',
-        image: 'src/assets/img/fancy.jpeg',
+        image: 'fancy.png',
         maxGuests: 16
     });
 
@@ -71,7 +71,7 @@ SetupDemoRestaurants = async () => {
         contactNumber: '0987654321',
         address: '5th Avenue, New York',
         description: 'A casual place to enjoy a meal between high speed trading sessions. Also a great place to give a pepe talk to the new trader hires.',
-        image: 'src/assets/img/kincades.jpeg',
+        image: 'kacandes.jpeg',
         maxGuests: 36
     });
 
