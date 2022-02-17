@@ -2,7 +2,7 @@
     <div class="col">
         <div class="col reservation-card">
             <div class="card h-100">
-                <img v-bind:src="require(`../../assets/img/restaurants/dorsia.jpeg`)" class="card-img-top" alt="Restaurant Image">
+                <img v-bind:src="require(`@/assets/img/reservations/reserved.jpg`)" class="card-img-top" alt="Restaurant Image">
                 <div class="card-body">
                     <h5 class="card-title">{{restName}}</h5>
                     <p class="card-text"><strong>Name: </strong> {{guestName}}</p>
@@ -55,6 +55,16 @@
 
     button {
         margin: 0 3%;
+    }
+
+    .card:hover {
+        background-color: rgb(232, 252, 255);
+    }
+
+    .card img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
     }
 </style>
 
