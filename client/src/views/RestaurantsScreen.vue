@@ -14,7 +14,7 @@
                         :hours="rest.openingHours"
                         :days="rest.openingDays"
                         :maxGuests="rest.maxGuests"
-                        image="dorsia.jpeg" 
+                        :image="rest.image"
                     />
                 </div>
             </div>

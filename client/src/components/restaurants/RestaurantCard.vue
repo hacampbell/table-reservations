@@ -1,7 +1,7 @@
 <template>
     <div class="col">
         <div class="card h-100">
-            <img v-bind:src="require(`../../assets/img/restaurants/${image}`)" class="card-img-top" alt="Restaurant Image">
+            <img v-bind:src="require(`@/assets/img/restaurants/${image}`)" class="card-img-top" alt="Restaurant Image">
 
             <div class="card-body">
                 <h5 class="card-title">{{restName}}</h5>
@@ -37,6 +37,16 @@
 
     .card-text {
         margin: 0.5%
+    }
+
+    .card:hover {
+        background-color: rgb(232, 252, 255);
+    }
+
+    .card img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
     }
 </style>
 
