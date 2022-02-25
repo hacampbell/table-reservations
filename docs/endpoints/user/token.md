@@ -51,7 +51,7 @@ Content Example
 
 Condition: No refresh token is sent to the server
 
-Code: `403 Bad Request`
+Code: `400 Bad Request`
 
 Content Example
 
