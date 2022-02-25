@@ -49,7 +49,7 @@ Content Example
 
 Condition: No refresh token is sent to the server
 
-Code: `404 Bad Request`
+Code: `400 Bad Request`
 
 Content Example
 
