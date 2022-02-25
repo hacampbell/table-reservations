@@ -51,4 +51,5 @@ The following is the documentation for the Drop Bear Table API.
 ## /user Route
 - ### [Register](./docs/endpoints/user/register.md): `POST /user/register/`
 - ### [Login](./docs/endpoints/user/login.md): `POST /user/login/`
+- ### [Token](./docs/endpoints/user/token.md): `POST /user/token/`
 - ### [Logout](./docs/endpoints/user/logout.md): `DELETE /user/logout/`
