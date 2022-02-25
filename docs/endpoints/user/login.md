@@ -26,7 +26,7 @@ Data Example
 
 Condition: A valid username and password were sent to the server
 
-Code: `20 OK`
+Code: `200 OK`
 
 Content Example
 ```json
