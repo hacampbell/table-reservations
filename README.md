@@ -11,6 +11,8 @@ If you have any questions about the project, or simply would like to know more a
 - [Overview](#overview)
 - [Starting & Stopping the Project](#starting--stopping-the-project)
 - [User Authentication & Authoriation](#user-authentication--authorisation)
+- [Endpoint Documentation](#endpoint-documentation)
+    - [/user Route](#user-route)
 
 ## Starting & Stopping the Project
 #### Running the Project
@@ -41,3 +43,68 @@ When the user makes a request for a new access token, they send their refresh to
 
 #### Access Control & User Groups
 Access control is handled by having three types of users within the system: admins, restaurateurs, and standard users. Admins can create, read, update, and delete all restaurants and reservations. Restaurateurs can create restaurants, read information about all restaurants, but only update and delete restaurants they have created. They cannot create reservations. Users can read information about all restaurants, but cannot create, update, or delete them. They can also create reservations, and read, update and delete their reservations.
+
+
+## Endpoint Documentation
+The following is the documentation for the Drop Bear Table API.
+
+## /user Route
+
+### Register
+
+Registers a new user in the system, if the given username does not already exist, which can be then used to login.
+
+#### METHOD: `POST`
+
+#### URL: `http://localhost:3000/user/register`
+
+#### Data Constraints
+```json
+{
+  "username": "[3 - 15 alphanumeric characters]",
+  "email": "[valid email]",
+  "password": "[valid password]"
+}
+```
+
+#### Data Example
+```json
+{
+  "username": "Henry",
+  "email": "henry@dbt.com",
+  "password": "Password123"
+}
+```
+
+#### Success Rsponse
+
+Condition: All data entered meets validation requirements, and no user of the given username already exists.
+
+Code: `201 Created`
+
+Content Example
+```json
+{
+    "message": "User Created"
+}
+```
+
+#### Error Response
+
+Condition: A user already exists with the given username, or an invalid username was given, or an invalid email was given, or an invalid password was given.
+
+Code: `400 Bad Request`
+
+Content Example
+
+_The servers response will consist of the message element, and some variation of the errors contained in the error element depending on the data entered_
+```json
+{
+    "message": "Unable to create new user. Bad data sent to server.",
+    "error": [
+        "The username you entered has already been taken.",
+        "Invalid email entered.",
+        "Invalid password entered. Passwords must be between 8 & 25 characters in length, contain only letters and numbers with at least one capital letter and at least one number"
+    ]
+}
+```
