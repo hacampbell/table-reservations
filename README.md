@@ -49,4 +49,5 @@ Access control is handled by having three types of users within the system: admi
 The following is the documentation for the Drop Bear Table API.
 
 ## /user Route
-- ### [Register](./docs/endpoints/user/register.md): `POST /user/register/` 
+- ### [Register](./docs/endpoints/user/register.md): `POST /user/register/`
+- ### [Login](./docs/endpoints/user/login.md): `POST /user/login/`
