@@ -2,7 +2,7 @@
 
 Invalidates a users refresh token by removing it from the database
 
-METHOD: `DLETE`
+METHOD: `DELETE`
 
 URL: `http://localhost:3000/user/logout`
 
